@@ -1,0 +1,642 @@
+# Copyright (C) 2026 PN Scripts
+# This file is distributed under the GPL-3.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: PN Scripts Waymend Lite – Redirects, 404 Log and Old URL Check 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/pnscripts-waymend-lite\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-10-16T21:04:17+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: pnscripts-waymend-lite\n"
+
+#. Plugin Name of the plugin
+#: pnscripts-waymend-lite.php
+msgid "PN Scripts Waymend Lite – Redirects, 404 Log and Old URL Check"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: pnscripts-waymend-lite.php
+msgid "https://pnscripts.com/marketplace/wp-waymend"
+msgstr ""
+
+#. Description of the plugin
+#: pnscripts-waymend-lite.php
+msgid "Keep old links working: 301, 302, 307 and 410 redirects by exact URL or prefix, a 404 log with one-click redirects, loop protection, and a check of the old site's URLs before a move."
+msgstr ""
+
+#. Author of the plugin
+#: pnscripts-waymend-lite.php
+msgid "PN Scripts"
+msgstr ""
+
+#. Author URI of the plugin
+#: pnscripts-waymend-lite.php
+msgid "https://pnscripts.com"
+msgstr ""
+
+#: pnscripts-waymend-lite.php:52
+msgid "Waymend (full edition) is active, so Waymend Lite is not running. You can deactivate Waymend Lite."
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:55
+msgid "Waymend redirects"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:56
+#: src/WordPress/Admin/Admin.php:75
+#: src/WordPress/Admin/Admin.php:102
+#: src/WordPress/Admin/Admin.php:112
+msgid "Redirects"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:93
+#: src/WordPress/Admin/Admin.php:554
+msgid "You do not have permission to manage redirects."
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:103
+#: src/WordPress/Admin/Admin.php:521
+msgid "404 log"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:104
+msgid "Check old URLs and export"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:105
+msgid "Settings"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:114
+#: src/WordPress/Admin/Admin.php:273
+#: src/WordPress/Admin/Admin.php:333
+msgid "Add redirect"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:160
+msgid "Search redirects"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:180
+msgid "Test a URL"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:183
+msgid "Trace"
+msgstr ""
+
+#. translators: %d: rule id.
+#: src/WordPress/Admin/Admin.php:203
+#, php-format
+msgid "rule #%d"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:209
+msgid "Loop: these rules send the visitor around in circles. Waymend stops at the URL it would redirect to itself, but fix the rules."
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:211
+msgid "No rule matches this URL; WordPress handles it as usual."
+msgstr ""
+
+#. translators: %d: number of redirects.
+#: src/WordPress/Admin/Admin.php:214
+#, php-format
+msgid "%d redirect in a row. Point the first rule at the final URL to save visitors a round trip."
+msgid_plural "%d redirects in a row. Point the first rule at the final URL to save visitors a round trip."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/WordPress/Admin/Admin.php:216
+msgid "One redirect, no loop."
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:230
+msgid "That redirect does not exist."
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:258
+msgid "301 Moved permanently"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:259
+msgid "302 Found (temporary)"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:260
+msgid "307 Temporary redirect (keeps the method)"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:261
+msgid "410 Gone (no target)"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:264
+msgid "Exact: this URL only"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:265
+msgid "Prefix: this path and everything below it; the rest is appended to the target"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:268
+msgid "Ignore: match the path, drop the visitor's query string"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:269
+msgid "Pass: match the path, append the visitor's query string to the target"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:270
+msgid "Exact: the source's query parameters must be present, in any order"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:273
+msgid "Edit redirect"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:284
+#: src/WordPress/Admin/Rules_Table.php:41
+msgid "Source"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:286
+msgid "A path on this site, such as /old-page/. For regex rules, a pattern such as ^/blog/(\\d{4})/(.+)$."
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:290
+#: src/WordPress/Admin/Rules_Table.php:42
+msgid "Target"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:292
+msgid "A path on this site (/new-page/) or a full URL. Leave empty for 410 Gone."
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:293
+msgid "Suggested from a published item with a matching slug. Check it before saving."
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:296
+#: src/WordPress/Admin/Rules_Table.php:44
+msgid "Status"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:302
+#: src/WordPress/Admin/Rules_Table.php:43
+msgid "Match"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:309
+msgid "Case-sensitive"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:313
+msgid "Query string"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:321
+msgid "Order"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:323
+msgid "Regex rules are tried from the lowest number up. Exact rules always come first, then the longest prefix."
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:327
+msgid "Enabled"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:329
+msgid "Active on the site"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:333
+msgid "Save redirect"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:342
+msgid "404 logging is switched off in the settings."
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:347
+msgid "Search 404s"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:357
+msgid "Clear the whole log"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:357
+msgid "Delete every logged 404?"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:366
+msgid "Export CSV"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:367
+msgid "Downloads every rule with its hit count and last hit, in the same format the importer reads."
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:371
+msgid "Download CSV"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:381
+msgid "Check old URLs"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:382
+msgid "Moving or redesigning a site? Paste the old addresses (from the old sitemap, Search Console or an analytics export), one per line. The old domain is fine: each path is checked on this site, the way a visitor following an old link would land."
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:388
+msgid "Old URLs, one per line"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:393
+msgid "Check URLs"
+msgstr ""
+
+#. translators: %d: maximum number of URLs per check.
+#: src/WordPress/Admin/Admin.php:395
+#, php-format
+msgid "Up to %d URLs per check."
+msgstr ""
+
+#. translators: %d: number of URLs not checked because of the time limit.
+#: src/WordPress/Admin/Admin.php:414
+#, php-format
+msgid "Not checked (time limit, run again): %d"
+msgstr ""
+
+#. translators: %d: number of URLs that need a redirect.
+#: src/WordPress/Admin/Admin.php:424
+#, php-format
+msgid "Download the %d URL that needs a redirect (CSV)"
+msgid_plural "Download the %d URLs that need a redirect (CSV)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/WordPress/Admin/Admin.php:428
+msgid "Old URL"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:428
+msgid "Result"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:428
+msgid "Lands on"
+msgstr ""
+
+#. translators: %s: suggested target path.
+#: src/WordPress/Admin/Admin.php:438
+#, php-format
+msgid "Suggested: %s"
+msgstr ""
+
+#. translators: %d: HTTP status code of WordPress's own redirect.
+#: src/WordPress/Admin/Admin.php:441
+#, php-format
+msgid "(%d, WordPress redirects it further)"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:455
+msgid "The first 300 results are shown; the CSV has every URL that needs a redirect."
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:465
+msgid "Missing, needs a redirect"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:466
+msgid "Redirected to a missing page"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:467
+msgid "Redirect loop"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:468
+msgid "Could not be checked"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:469
+msgid "Sent to another site"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:470
+msgid "Gone (410) on purpose"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:471
+msgid "Redirected, works"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:472
+msgid "Works"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:482
+msgid "Paste at least one old URL or path, one per line."
+msgstr ""
+
+#. translators: %d: number of lines that are not URLs.
+#: src/WordPress/Admin/Admin.php:491
+#, php-format
+msgid "%d line is not a URL and was skipped."
+msgid_plural "%d lines are not URLs and were skipped."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: maximum number of URLs per check.
+#: src/WordPress/Admin/Admin.php:495
+#, php-format
+msgid "Only the first %d URLs were checked."
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:523
+msgid "Record URLs that return 404"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:524
+msgid "Stores the path, the number of hits, first and last time and the last referrer. No IP addresses or user agents."
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:528
+msgid "Keep at most"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:530
+msgid "distinct 404 URLs; older ones are removed once a day."
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:534
+msgid "Do not log"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:536
+msgid "One pattern per line, * matches anything. The defaults skip common vulnerability scans such as *.php and /.env."
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:538
+msgid "Default status for new redirects"
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:609
+msgid "Redirect saved."
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:609
+msgid "Redirect added."
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:620
+msgid "Redirect deleted."
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:637
+msgid "Redirect disabled."
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:637
+msgid "Redirect enabled."
+msgstr ""
+
+#. translators: %d: number of log entries.
+#: src/WordPress/Admin/Admin.php:659
+#, php-format
+msgid "%d entry deleted."
+msgid_plural "%d entries deleted."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: number of redirects.
+#: src/WordPress/Admin/Admin.php:668
+#, php-format
+msgid "%d redirect deleted."
+msgid_plural "%d redirects deleted."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: number of redirects.
+#: src/WordPress/Admin/Admin.php:674
+#, php-format
+msgid "%d redirect updated."
+msgid_plural "%d redirects updated."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: number of redirects.
+#: src/WordPress/Admin/Admin.php:679
+#, php-format
+msgid "Hit count reset for %d redirect."
+msgid_plural "Hit counts reset for %d redirects."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/WordPress/Admin/Admin.php:695
+msgid "The 404 log is empty."
+msgstr ""
+
+#: src/WordPress/Admin/Admin.php:756
+msgid "Settings saved."
+msgstr ""
+
+#: src/WordPress/Admin/Log_Table.php:40
+msgid "URL"
+msgstr ""
+
+#: src/WordPress/Admin/Log_Table.php:41
+#: src/WordPress/Admin/Rules_Table.php:45
+msgid "Hits"
+msgstr ""
+
+#: src/WordPress/Admin/Log_Table.php:42
+msgid "Last seen"
+msgstr ""
+
+#: src/WordPress/Admin/Log_Table.php:43
+msgid "First seen"
+msgstr ""
+
+#: src/WordPress/Admin/Log_Table.php:44
+msgid "Last referrer"
+msgstr ""
+
+#: src/WordPress/Admin/Log_Table.php:58
+#: src/WordPress/Admin/Log_Table.php:106
+#: src/WordPress/Admin/Rules_Table.php:64
+#: src/WordPress/Admin/Rules_Table.php:145
+msgid "Delete"
+msgstr ""
+
+#: src/WordPress/Admin/Log_Table.php:81
+msgid "No 404 errors logged."
+msgstr ""
+
+#: src/WordPress/Admin/Log_Table.php:104
+msgid "Redirect this"
+msgstr ""
+
+#: src/WordPress/Admin/Log_Table.php:105
+msgid "Open"
+msgstr ""
+
+#: src/WordPress/Admin/Log_Table.php:131
+msgid "none"
+msgstr ""
+
+#. translators: %s: human-readable time difference.
+#: src/WordPress/Admin/Log_Table.php:140
+#: src/WordPress/Admin/Rules_Table.php:214
+#, php-format
+msgid "%s ago"
+msgstr ""
+
+#: src/WordPress/Admin/Messages.php:25
+msgid "Enter the old URL (source)."
+msgstr ""
+
+#: src/WordPress/Admin/Messages.php:27
+msgid "The source must be a path on this site, such as /old-page."
+msgstr ""
+
+#: src/WordPress/Admin/Messages.php:29
+msgid "Enter the target URL, or choose 410 Gone."
+msgstr ""
+
+#: src/WordPress/Admin/Messages.php:31
+msgid "The target must be a path or an http(s) URL."
+msgstr ""
+
+#: src/WordPress/Admin/Messages.php:33
+msgid "Choose 301, 302, 307 or 410."
+msgstr ""
+
+#: src/WordPress/Admin/Messages.php:35
+msgid "Choose exact, prefix or regex matching."
+msgstr ""
+
+#: src/WordPress/Admin/Messages.php:37
+msgid "Choose how the query string is handled."
+msgstr ""
+
+#. translators: %s: the PCRE error message.
+#: src/WordPress/Admin/Messages.php:40
+#, php-format
+msgid "The regular expression is not valid: %s"
+msgstr ""
+
+#. translators: %s: id of the existing rule.
+#: src/WordPress/Admin/Messages.php:43
+#, php-format
+msgid "Rule #%s already uses this source with the same match type."
+msgstr ""
+
+#: src/WordPress/Admin/Messages.php:45
+msgid "This rule would create a redirect loop: following it brings the visitor back to a URL already visited."
+msgstr ""
+
+#. translators: %s: final URL of the redirect chain.
+#: src/WordPress/Admin/Messages.php:48
+#, php-format
+msgid "The target is redirected again; visitors end up at %s. Consider pointing this rule there directly."
+msgstr ""
+
+#: src/WordPress/Admin/Messages.php:50
+msgid "Query mode \"exact\" is selected but the source has no query string, so only requests without one will match."
+msgstr ""
+
+#: src/WordPress/Admin/Messages.php:52
+msgid "The target contains $1-style placeholders, which are only replaced for regex rules."
+msgstr ""
+
+#: src/WordPress/Admin/Rules_Table.php:46
+msgid "Last hit"
+msgstr ""
+
+#: src/WordPress/Admin/Rules_Table.php:61
+#: src/WordPress/Admin/Rules_Table.php:140
+msgid "Enable"
+msgstr ""
+
+#: src/WordPress/Admin/Rules_Table.php:62
+#: src/WordPress/Admin/Rules_Table.php:140
+msgid "Disable"
+msgstr ""
+
+#: src/WordPress/Admin/Rules_Table.php:63
+msgid "Reset hit counts"
+msgstr ""
+
+#: src/WordPress/Admin/Rules_Table.php:73
+msgid "All"
+msgstr ""
+
+#: src/WordPress/Admin/Rules_Table.php:74
+msgid "Active"
+msgstr ""
+
+#: src/WordPress/Admin/Rules_Table.php:75
+msgid "Inactive"
+msgstr ""
+
+#: src/WordPress/Admin/Rules_Table.php:76
+msgid "410 Gone"
+msgstr ""
+
+#: src/WordPress/Admin/Rules_Table.php:114
+msgid "No redirects yet. Add one above, import a CSV file or create one from the 404 log."
+msgstr ""
+
+#: src/WordPress/Admin/Rules_Table.php:139
+msgid "Edit"
+msgstr ""
+
+#: src/WordPress/Admin/Rules_Table.php:144
+msgid "Delete this redirect?"
+msgstr ""
+
+#: src/WordPress/Admin/Rules_Table.php:149
+msgid "disabled"
+msgstr ""
+
+#: src/WordPress/Admin/Rules_Table.php:159
+msgid "(none, answers 410 Gone)"
+msgstr ""
+
+#: src/WordPress/Admin/Rules_Table.php:170
+msgid "Exact"
+msgstr ""
+
+#: src/WordPress/Admin/Rules_Table.php:171
+msgid "Prefix"
+msgstr ""
+
+#: src/WordPress/Admin/Rules_Table.php:172
+msgid "Regex"
+msgstr ""
+
+#: src/WordPress/Admin/Rules_Table.php:176
+msgid "passes query"
+msgstr ""
+
+#: src/WordPress/Admin/Rules_Table.php:178
+msgid "exact query"
+msgstr ""
+
+#: src/WordPress/Admin/Rules_Table.php:181
+msgid "case-sensitive"
+msgstr ""
+
+#: src/WordPress/Admin/Rules_Table.php:207
+msgid "never"
+msgstr ""
