@@ -1,6 +1,6 @@
 # Waymend Lite by PN Scripts
 SLUG    := pnscripts-waymend-lite
-VERSION := 1.0.0
+VERSION := 1.0.1
 PY      ?= python3
 ZIP     := dist/$(SLUG)-$(VERSION).zip
 RUNTIME := pnscripts-waymend-lite.php uninstall.php readme.txt LICENSE src assets languages

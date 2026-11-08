@@ -32,7 +32,7 @@ final class Messages {
 			case 'status_invalid':
 				return __( 'Choose 301, 302, 307 or 410.', 'pnscripts-waymend-lite' );
 			case 'match_invalid':
-				return __( 'Choose exact, prefix or regex matching.', 'pnscripts-waymend-lite' );
+				return __( 'Choose exact or prefix matching.', 'pnscripts-waymend-lite' );
 			case 'query_invalid':
 				return __( 'Choose how the query string is handled.', 'pnscripts-waymend-lite' );
 			case 'regex_invalid':
@@ -49,7 +49,7 @@ final class Messages {
 			case 'query_exact_without_query':
 				return __( 'Query mode "exact" is selected but the source has no query string, so only requests without one will match.', 'pnscripts-waymend-lite' );
 			case 'captures_without_regex':
-				return __( 'The target contains $1-style placeholders, which are only replaced for regex rules.', 'pnscripts-waymend-lite' );
+				return __( 'The target contains $1-style placeholders, which the Lite edition does not replace.', 'pnscripts-waymend-lite' );
 		}
 
 		return $problem['code'];

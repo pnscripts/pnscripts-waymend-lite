@@ -40,8 +40,7 @@ BG = {
     "Exact: the source's query parameters must be present, in any order": "Точно: параметрите от източника трябва да присъстват, в произволен ред",
     "Edit redirect": "Редактиране на пренасочване",
     "Source": "Източник",
-    r"A path on this site, such as /old-page/. For regex rules, a pattern such as ^/blog/(\\d{4})/(.+)$.":
-        r"Път в този сайт, например /old-page/. За regex правила: шаблон, например ^/blog/(\\d{4})/(.+)$.",
+    "A path on this site, such as /old-page/.": "Път в този сайт, например /old-page/.",
     "Target": "Цел",
     "A path on this site (/new-page/) or a full URL. Leave empty for 410 Gone.": "Път в този сайт (/new-page/) или пълен адрес. Оставете празно за 410.",
     "Suggested from a published item with a matching slug. Check it before saving.": "Предложено по публикувано съдържание с подобен slug. Проверете го, преди да запишете.",
@@ -108,7 +107,7 @@ BG = {
     "Enter the target URL, or choose 410 Gone.": "Въведете целевия адрес или изберете 410.",
     "The target must be a path or an http(s) URL.": "Целта трябва да е път или http(s) адрес.",
     "Choose 301, 302, 307 or 410.": "Изберете 301, 302, 307 или 410.",
-    "Choose exact, prefix or regex matching.": "Изберете точно, префиксно или regex съвпадение.",
+    "Choose exact or prefix matching.": "Изберете точно или префиксно съвпадение.",
     "Choose how the query string is handled.": "Изберете как да се обработва query string-ът.",
     "The regular expression is not valid: %s": "Регулярният израз не е валиден: %s",
     "Rule #%s already uses this source with the same match type.": "Правило №%s вече използва този източник със същия вид съвпадение.",
@@ -118,7 +117,7 @@ BG = {
         "Целта се пренасочва отново; посетителите стигат до %s. По-добре насочете правилото направо там.",
     r'Query mode \"exact\" is selected but the source has no query string, so only requests without one will match.':
         r'Избран е режим „точно“ за query string-а, но източникът няма такъв, затова ще съвпадат само заявки без параметри.',
-    "The target contains $1-style placeholders, which are only replaced for regex rules.": "Целта съдържа заместители като $1, които се попълват само при regex правила.",
+    "The target contains $1-style placeholders, which the Lite edition does not replace.": "Целта съдържа заместители като $1, които изданието Lite не попълва.",
     "Last hit": "Последно посещение",
     "Enable": "Включване",
     "Disable": "Изключване",

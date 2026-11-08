@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-3.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: PN Scripts Waymend Lite – Redirects, 404 Log and Old URL Check 1.0.0\n"
+"Project-Id-Version: PN Scripts Waymend Lite – Redirects, 404 Log and Old URL Check 1.0.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/pnscripts-waymend-lite\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-16T21:04:17+00:00\n"
+"POT-Creation-Date: 2026-11-08T20:39:09+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pnscripts-waymend-lite\n"
@@ -55,12 +55,12 @@ msgid "Redirects"
 msgstr ""
 
 #: src/WordPress/Admin/Admin.php:93
-#: src/WordPress/Admin/Admin.php:554
+#: src/WordPress/Admin/Admin.php:548
 msgid "You do not have permission to manage redirects."
 msgstr ""
 
 #: src/WordPress/Admin/Admin.php:103
-#: src/WordPress/Admin/Admin.php:521
+#: src/WordPress/Admin/Admin.php:515
 msgid "404 log"
 msgstr ""
 
@@ -74,7 +74,7 @@ msgstr ""
 
 #: src/WordPress/Admin/Admin.php:114
 #: src/WordPress/Admin/Admin.php:273
-#: src/WordPress/Admin/Admin.php:333
+#: src/WordPress/Admin/Admin.php:327
 msgid "Add redirect"
 msgstr ""
 
@@ -166,7 +166,7 @@ msgid "Source"
 msgstr ""
 
 #: src/WordPress/Admin/Admin.php:286
-msgid "A path on this site, such as /old-page/. For regex rules, a pattern such as ^/blog/(\\d{4})/(.+)$."
+msgid "A path on this site, such as /old-page/."
 msgstr ""
 
 #: src/WordPress/Admin/Admin.php:290
@@ -201,155 +201,147 @@ msgid "Query string"
 msgstr ""
 
 #: src/WordPress/Admin/Admin.php:321
-msgid "Order"
-msgstr ""
-
-#: src/WordPress/Admin/Admin.php:323
-msgid "Regex rules are tried from the lowest number up. Exact rules always come first, then the longest prefix."
-msgstr ""
-
-#: src/WordPress/Admin/Admin.php:327
 msgid "Enabled"
 msgstr ""
 
-#: src/WordPress/Admin/Admin.php:329
+#: src/WordPress/Admin/Admin.php:323
 msgid "Active on the site"
 msgstr ""
 
-#: src/WordPress/Admin/Admin.php:333
+#: src/WordPress/Admin/Admin.php:327
 msgid "Save redirect"
 msgstr ""
 
-#: src/WordPress/Admin/Admin.php:342
+#: src/WordPress/Admin/Admin.php:336
 msgid "404 logging is switched off in the settings."
 msgstr ""
 
-#: src/WordPress/Admin/Admin.php:347
+#: src/WordPress/Admin/Admin.php:341
 msgid "Search 404s"
 msgstr ""
 
-#: src/WordPress/Admin/Admin.php:357
+#: src/WordPress/Admin/Admin.php:351
 msgid "Clear the whole log"
 msgstr ""
 
-#: src/WordPress/Admin/Admin.php:357
+#: src/WordPress/Admin/Admin.php:351
 msgid "Delete every logged 404?"
 msgstr ""
 
-#: src/WordPress/Admin/Admin.php:366
+#: src/WordPress/Admin/Admin.php:360
 msgid "Export CSV"
 msgstr ""
 
-#: src/WordPress/Admin/Admin.php:367
+#: src/WordPress/Admin/Admin.php:361
 msgid "Downloads every rule with its hit count and last hit, in the same format the importer reads."
 msgstr ""
 
-#: src/WordPress/Admin/Admin.php:371
+#: src/WordPress/Admin/Admin.php:365
 msgid "Download CSV"
 msgstr ""
 
-#: src/WordPress/Admin/Admin.php:381
+#: src/WordPress/Admin/Admin.php:375
 msgid "Check old URLs"
 msgstr ""
 
-#: src/WordPress/Admin/Admin.php:382
+#: src/WordPress/Admin/Admin.php:376
 msgid "Moving or redesigning a site? Paste the old addresses (from the old sitemap, Search Console or an analytics export), one per line. The old domain is fine: each path is checked on this site, the way a visitor following an old link would land."
 msgstr ""
 
-#: src/WordPress/Admin/Admin.php:388
+#: src/WordPress/Admin/Admin.php:382
 msgid "Old URLs, one per line"
 msgstr ""
 
-#: src/WordPress/Admin/Admin.php:393
+#: src/WordPress/Admin/Admin.php:387
 msgid "Check URLs"
 msgstr ""
 
 #. translators: %d: maximum number of URLs per check.
-#: src/WordPress/Admin/Admin.php:395
+#: src/WordPress/Admin/Admin.php:389
 #, php-format
 msgid "Up to %d URLs per check."
 msgstr ""
 
 #. translators: %d: number of URLs not checked because of the time limit.
-#: src/WordPress/Admin/Admin.php:414
+#: src/WordPress/Admin/Admin.php:408
 #, php-format
 msgid "Not checked (time limit, run again): %d"
 msgstr ""
 
 #. translators: %d: number of URLs that need a redirect.
-#: src/WordPress/Admin/Admin.php:424
+#: src/WordPress/Admin/Admin.php:418
 #, php-format
 msgid "Download the %d URL that needs a redirect (CSV)"
 msgid_plural "Download the %d URLs that need a redirect (CSV)"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/WordPress/Admin/Admin.php:428
+#: src/WordPress/Admin/Admin.php:422
 msgid "Old URL"
 msgstr ""
 
-#: src/WordPress/Admin/Admin.php:428
+#: src/WordPress/Admin/Admin.php:422
 msgid "Result"
 msgstr ""
 
-#: src/WordPress/Admin/Admin.php:428
+#: src/WordPress/Admin/Admin.php:422
 msgid "Lands on"
 msgstr ""
 
 #. translators: %s: suggested target path.
-#: src/WordPress/Admin/Admin.php:438
+#: src/WordPress/Admin/Admin.php:432
 #, php-format
 msgid "Suggested: %s"
 msgstr ""
 
 #. translators: %d: HTTP status code of WordPress's own redirect.
-#: src/WordPress/Admin/Admin.php:441
+#: src/WordPress/Admin/Admin.php:435
 #, php-format
 msgid "(%d, WordPress redirects it further)"
 msgstr ""
 
-#: src/WordPress/Admin/Admin.php:455
+#: src/WordPress/Admin/Admin.php:449
 msgid "The first 300 results are shown; the CSV has every URL that needs a redirect."
 msgstr ""
 
-#: src/WordPress/Admin/Admin.php:465
+#: src/WordPress/Admin/Admin.php:459
 msgid "Missing, needs a redirect"
 msgstr ""
 
-#: src/WordPress/Admin/Admin.php:466
+#: src/WordPress/Admin/Admin.php:460
 msgid "Redirected to a missing page"
 msgstr ""
 
-#: src/WordPress/Admin/Admin.php:467
+#: src/WordPress/Admin/Admin.php:461
 msgid "Redirect loop"
 msgstr ""
 
-#: src/WordPress/Admin/Admin.php:468
+#: src/WordPress/Admin/Admin.php:462
 msgid "Could not be checked"
 msgstr ""
 
-#: src/WordPress/Admin/Admin.php:469
+#: src/WordPress/Admin/Admin.php:463
 msgid "Sent to another site"
 msgstr ""
 
-#: src/WordPress/Admin/Admin.php:470
+#: src/WordPress/Admin/Admin.php:464
 msgid "Gone (410) on purpose"
 msgstr ""
 
-#: src/WordPress/Admin/Admin.php:471
+#: src/WordPress/Admin/Admin.php:465
 msgid "Redirected, works"
 msgstr ""
 
-#: src/WordPress/Admin/Admin.php:472
+#: src/WordPress/Admin/Admin.php:466
 msgid "Works"
 msgstr ""
 
-#: src/WordPress/Admin/Admin.php:482
+#: src/WordPress/Admin/Admin.php:476
 msgid "Paste at least one old URL or path, one per line."
 msgstr ""
 
 #. translators: %d: number of lines that are not URLs.
-#: src/WordPress/Admin/Admin.php:491
+#: src/WordPress/Admin/Admin.php:485
 #, php-format
 msgid "%d line is not a URL and was skipped."
 msgid_plural "%d lines are not URLs and were skipped."
@@ -357,61 +349,61 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %d: maximum number of URLs per check.
-#: src/WordPress/Admin/Admin.php:495
+#: src/WordPress/Admin/Admin.php:489
 #, php-format
 msgid "Only the first %d URLs were checked."
 msgstr ""
 
-#: src/WordPress/Admin/Admin.php:523
+#: src/WordPress/Admin/Admin.php:517
 msgid "Record URLs that return 404"
 msgstr ""
 
-#: src/WordPress/Admin/Admin.php:524
+#: src/WordPress/Admin/Admin.php:518
 msgid "Stores the path, the number of hits, first and last time and the last referrer. No IP addresses or user agents."
 msgstr ""
 
-#: src/WordPress/Admin/Admin.php:528
+#: src/WordPress/Admin/Admin.php:522
 msgid "Keep at most"
 msgstr ""
 
-#: src/WordPress/Admin/Admin.php:530
+#: src/WordPress/Admin/Admin.php:524
 msgid "distinct 404 URLs; older ones are removed once a day."
 msgstr ""
 
-#: src/WordPress/Admin/Admin.php:534
+#: src/WordPress/Admin/Admin.php:528
 msgid "Do not log"
 msgstr ""
 
-#: src/WordPress/Admin/Admin.php:536
+#: src/WordPress/Admin/Admin.php:530
 msgid "One pattern per line, * matches anything. The defaults skip common vulnerability scans such as *.php and /.env."
 msgstr ""
 
-#: src/WordPress/Admin/Admin.php:538
+#: src/WordPress/Admin/Admin.php:532
 msgid "Default status for new redirects"
 msgstr ""
 
-#: src/WordPress/Admin/Admin.php:609
+#: src/WordPress/Admin/Admin.php:603
 msgid "Redirect saved."
 msgstr ""
 
-#: src/WordPress/Admin/Admin.php:609
+#: src/WordPress/Admin/Admin.php:603
 msgid "Redirect added."
 msgstr ""
 
-#: src/WordPress/Admin/Admin.php:620
+#: src/WordPress/Admin/Admin.php:614
 msgid "Redirect deleted."
 msgstr ""
 
-#: src/WordPress/Admin/Admin.php:637
+#: src/WordPress/Admin/Admin.php:631
 msgid "Redirect disabled."
 msgstr ""
 
-#: src/WordPress/Admin/Admin.php:637
+#: src/WordPress/Admin/Admin.php:631
 msgid "Redirect enabled."
 msgstr ""
 
 #. translators: %d: number of log entries.
-#: src/WordPress/Admin/Admin.php:659
+#: src/WordPress/Admin/Admin.php:653
 #, php-format
 msgid "%d entry deleted."
 msgid_plural "%d entries deleted."
@@ -419,7 +411,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %d: number of redirects.
-#: src/WordPress/Admin/Admin.php:668
+#: src/WordPress/Admin/Admin.php:662
 #, php-format
 msgid "%d redirect deleted."
 msgid_plural "%d redirects deleted."
@@ -427,7 +419,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %d: number of redirects.
-#: src/WordPress/Admin/Admin.php:674
+#: src/WordPress/Admin/Admin.php:668
 #, php-format
 msgid "%d redirect updated."
 msgid_plural "%d redirects updated."
@@ -435,18 +427,18 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %d: number of redirects.
-#: src/WordPress/Admin/Admin.php:679
+#: src/WordPress/Admin/Admin.php:673
 #, php-format
 msgid "Hit count reset for %d redirect."
 msgid_plural "Hit counts reset for %d redirects."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/WordPress/Admin/Admin.php:695
+#: src/WordPress/Admin/Admin.php:689
 msgid "The 404 log is empty."
 msgstr ""
 
-#: src/WordPress/Admin/Admin.php:756
+#: src/WordPress/Admin/Admin.php:750
 msgid "Settings saved."
 msgstr ""
 
@@ -522,7 +514,7 @@ msgid "Choose 301, 302, 307 or 410."
 msgstr ""
 
 #: src/WordPress/Admin/Messages.php:35
-msgid "Choose exact, prefix or regex matching."
+msgid "Choose exact or prefix matching."
 msgstr ""
 
 #: src/WordPress/Admin/Messages.php:37
@@ -556,7 +548,7 @@ msgid "Query mode \"exact\" is selected but the source has no query string, so o
 msgstr ""
 
 #: src/WordPress/Admin/Messages.php:52
-msgid "The target contains $1-style placeholders, which are only replaced for regex rules."
+msgid "The target contains $1-style placeholders, which the Lite edition does not replace."
 msgstr ""
 
 #: src/WordPress/Admin/Rules_Table.php:46
