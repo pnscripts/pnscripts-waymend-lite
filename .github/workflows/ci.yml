@@ -1,0 +1,78 @@
+name: CI
+
+# Every push to main and every pull request. No composer.lock is committed,
+# so each run installs the newest development tools; the plugin itself has no
+# Composer dependencies.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    # Weekly, so a new WordPress release is tried in the smoke test even when
+    # nothing here changed.
+    - cron: '0 5 * * 1'
+
+permissions:
+  contents: read
+
+# A newer push to the same branch or pull request replaces a run still in progress.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  unit:
+    name: Syntax and unit tests (PHP ${{ matrix.php }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # The plugin requires PHP 8.0 (readme.txt and the plugin header), and
+        # composer.json pins the platform to 8.0, so PHPUnit 9.6 is resolved
+        # and runs on both ends.
+        php: ['8.0', '8.4']
+    steps:
+      # Actions are pinned to commit hashes, so a moved tag cannot change what runs here.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+          tools: composer:v2
+      - name: Install dependencies
+        run: composer update --no-interaction --no-progress --prefer-dist
+      - name: Composer audit
+        run: composer audit
+      - name: Every shipped PHP file parses
+        run: find pnscripts-waymend-lite.php uninstall.php src -name '*.php' -print0 | xargs -0 -n1 php -l
+      - name: Unit tests
+        run: vendor/bin/phpunit
+
+  smoke:
+    name: WordPress ${{ matrix.wp }} smoke test (PHP ${{ matrix.php }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # The newest WordPress on the newest PHP tested.
+          - wp: latest
+            php: '8.4'
+          # The oldest supported pair: "Requires at least: 6.4", "Requires PHP: 8.0".
+          - wp: '6.4.7'
+            php: '8.0'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
+        with:
+          php-version: ${{ matrix.php }}
+          # WordPress runs on SQLite through the official integration plugin.
+          extensions: pdo_sqlite, sqlite3, zip
+          coverage: none
+      # Builds the release ZIP, installs it into a fresh WordPress the way a
+      # user uploads it, and checks real HTTP responses, the admin screens,
+      # the Bulgarian translation and a clean uninstall.
+      - name: Smoke test
+        env:
+          WP_VERSION: ${{ matrix.wp != 'latest' && matrix.wp || '' }}
+        run: make smoke
