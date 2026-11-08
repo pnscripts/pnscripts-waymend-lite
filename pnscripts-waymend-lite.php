@@ -3,7 +3,7 @@
  * Plugin Name:       PN Scripts Waymend Lite – Redirects, 404 Log and Old URL Check
  * Plugin URI:        https://pnscripts.com/marketplace/wp-waymend
  * Description:       Keep old links working: 301, 302, 307 and 410 redirects by exact URL or prefix, a 404 log with one-click redirects, loop protection, and a check of the old site's URLs before a move.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Requires at least: 6.4
  * Requires PHP:      8.0
  * Author:            PN Scripts
@@ -20,7 +20,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'WAYMEND_LITE_VERSION', '1.0.0' );
+define( 'WAYMEND_LITE_VERSION', '1.0.1' );
 define( 'WAYMEND_LITE_FILE', __FILE__ );
 define( 'WAYMEND_LITE_DIR', plugin_dir_path( __FILE__ ) );
 

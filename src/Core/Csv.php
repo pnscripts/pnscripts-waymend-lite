@@ -128,8 +128,11 @@ final class Csv {
 		}
 
 		$match = strtolower( isset( $record['match'] ) && '' !== $record['match'] ? $record['match'] : Rule::EXACT );
+		if ( Rule::REGEX === $match ) {
+			return 'Regex rules are part of the full Waymend; the Lite edition imports exact and prefix rules.';
+		}
 		if ( ! in_array( $match, Rule::MATCH_TYPES, true ) ) {
-			return sprintf( 'Unsupported match type "%s" (use exact, prefix or regex).', $match );
+			return sprintf( 'Unsupported match type "%s" (use %s).', $match, implode( ' or ', Rule::MATCH_TYPES ) );
 		}
 
 		$query = strtolower( isset( $record['query'] ) && '' !== $record['query'] ? $record['query'] : Rule::QUERY_IGNORE );

@@ -22,7 +22,10 @@ check() { # label, expected, actual
 wp plugin activate pnscripts-waymend-lite --quiet
 check "plugin active" "active" "$(wp plugin get pnscripts-waymend-lite --field=status)"
 check "tables created" "2" "$(tables)"
-echo "seed: $(wp eval-file "$ROOT/tools/smoke-seed.php")"
+SEED="$(wp eval-file "$ROOT/tools/smoke-seed.php")"
+echo "seed: $SEED"
+# The seed's regex row (line 5) is refused with a message that does not offer regex.
+check "import names the Lite match types" "yes" "$(grep -q '"5":"Regex rules are part of the full Waymend; the Lite edition imports exact and prefix rules."' <<< "$SEED" && echo yes || echo no)"
 
 php -S "127.0.0.1:$PORT" -t "$WP_DIR" "$ROOT/tools/router.php" >"$ROOT/build/server.log" 2>&1 &
 SERVER=$!
@@ -58,6 +61,11 @@ for tab in "&tab=rules" "&tab=log" "&tab=import" "&tab=settings" "&tab=rules&act
 	if grep -q 'class="wrap waymend"' <<< "$html" && ! grep -qi 'fatal error\|warning:' <<< "$html"; then echo "ok   admin screen $tab renders"; else echo "FAIL admin screen $tab"; fail=1; fi
 done
 grep -q '2 redirects in a row' <<< "$(admin '&tab=rules&test_url=/a-to-b')" && echo "ok   URL tracer shows the chain" || { echo "FAIL URL tracer"; fail=1; }
+html="$(admin '&tab=rules&action=new')"
+check "rule form offers exact and prefix only" "exact prefix" "$(grep -o 'name="match_type" value="[a-z]*"' <<< "$html" | sed 's/.*value="//; s/"$//' | tr '\n' ' ' | sed 's/ $//')"
+# Only the plugin's form: WordPress's own admin scripts on the same page may say "regex".
+check "rule form has no regex hint or Order field" "0" "$(sed -n '/class="waymend-form"/,/<\/form>/p' <<< "$html" | grep -ci 'regex\|waymend-position')"
+check "rule form found" "1" "$(grep -c 'class="waymend-form"' <<< "$html")"
 check "not a symlink (installed from ZIP)" "no" "$([ -L "$WP_DIR/wp-content/plugins/pnscripts-waymend-lite" ] && echo yes || echo no)"
 wp option update WPLANG bg_BG --quiet
 check "Bulgarian translation loads"  "Пренасочвания" "$(wp eval 'echo __( "Redirects", "pnscripts-waymend-lite" );')"

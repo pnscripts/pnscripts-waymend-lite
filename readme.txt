@@ -4,7 +4,7 @@ Tags: redirect, 301, 404, migration, broken links
 Requires at least: 6.4
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -93,10 +93,16 @@ It does not need to: with the full Waymend active, Waymend Lite stands aside and
 
 == Changelog ==
 
+= 1.0.1 =
+* Messages no longer offer regex rules, which only the full Waymend has: the CSV import names the match types the Lite edition accepts (exact, prefix), the form hints describe paths only, and the unused Order field is gone.
+
 = 1.0.0 =
 * First release of the Lite edition: exact and prefix redirects (301, 302, 307, 410), loop protection, URL tracer, hit counter, 404 log with suggestions, Check old URLs, CSV export, English and Bulgarian.
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+Clearer messages: the CSV import and the form no longer suggest regex rules.
 
 = 1.0.0 =
 First release.

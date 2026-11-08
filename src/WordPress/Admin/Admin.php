@@ -283,7 +283,7 @@ final class Admin {
 			'<tr><th scope="row"><label for="waymend-source">%s</label></th><td><input type="text" id="waymend-source" name="source" class="large-text waymend-mono" value="%s" required><p class="description">%s</p></td></tr>',
 			esc_html__( 'Source', 'pnscripts-waymend-lite' ),
 			esc_attr( $rule->source ),
-			esc_html__( 'A path on this site, such as /old-page/. For regex rules, a pattern such as ^/blog/(\d{4})/(.+)$.', 'pnscripts-waymend-lite' )
+			esc_html__( 'A path on this site, such as /old-page/.', 'pnscripts-waymend-lite' )
 		);
 		printf(
 			'<tr><th scope="row"><label for="waymend-target">%s</label></th><td><input type="text" id="waymend-target" name="target" class="large-text waymend-mono" value="%s"><p class="description">%s</p>%s</td></tr>',
@@ -316,12 +316,6 @@ final class Admin {
 		}
 		echo '</fieldset></td></tr>';
 
-		printf(
-			'<tr><th scope="row"><label for="waymend-position">%s</label></th><td><input type="number" id="waymend-position" name="position" class="small-text" value="%d"><p class="description">%s</p></td></tr>',
-			esc_html__( 'Order', 'pnscripts-waymend-lite' ),
-			(int) $rule->position,
-			esc_html__( 'Regex rules are tried from the lowest number up. Exact rules always come first, then the longest prefix.', 'pnscripts-waymend-lite' )
-		);
 		printf(
 			'<tr><th scope="row">%s</th><td><label><input type="checkbox" name="enabled" value="1"%s> %s</label></td></tr>',
 			esc_html__( 'Enabled', 'pnscripts-waymend-lite' ),
