@@ -13,8 +13,8 @@ msgstr ""
 
 #. Plugin Name of the plugin
 #: pnscripts-waymend-lite.php
-msgid "PN Scripts Waymend Lite – Redirects, 404 Log and Old URL Check"
-msgstr "PN Scripts Waymend Lite – пренасочвания, 404 дневник и проверка на стари адреси"
+msgid "PN Scripts Waymend Lite: Redirects, 404 Log and Old URL Check"
+msgstr "PN Scripts Waymend Lite: пренасочвания, 404 дневник и проверка на стари адреси"
 
 #. Plugin URI of the plugin
 #: pnscripts-waymend-lite.php
@@ -36,309 +36,309 @@ msgstr "PN Scripts"
 msgid "https://pnscripts.com"
 msgstr "https://pnscripts.com"
 
-#: pnscripts-waymend-lite.php:52
+#: pnscripts-waymend-lite.php:51
 msgid "Waymend (full edition) is active, so Waymend Lite is not running. You can deactivate Waymend Lite."
 msgstr "Waymend (пълната версия) е активен, затова Waymend Lite не работи. Можете да деактивирате Waymend Lite."
 
-#: src/WordPress/Admin/Admin.php:55
+#: src/WordPress/Admin/Admin.php:56
 msgid "Waymend redirects"
 msgstr "Пренасочвания Waymend"
 
-#: src/WordPress/Admin/Admin.php:56
-#: src/WordPress/Admin/Admin.php:75
-#: src/WordPress/Admin/Admin.php:102
-#: src/WordPress/Admin/Admin.php:112
+#: src/WordPress/Admin/Admin.php:57
+#: src/WordPress/Admin/Admin.php:76
+#: src/WordPress/Admin/Admin.php:103
+#: src/WordPress/Admin/Admin.php:113
 msgid "Redirects"
 msgstr "Пренасочвания"
 
-#: src/WordPress/Admin/Admin.php:93
-#: src/WordPress/Admin/Admin.php:548
+#: src/WordPress/Admin/Admin.php:94
+#: src/WordPress/Admin/Admin.php:549
 msgid "You do not have permission to manage redirects."
 msgstr "Нямате права да управлявате пренасочванията."
 
-#: src/WordPress/Admin/Admin.php:103
-#: src/WordPress/Admin/Admin.php:515
+#: src/WordPress/Admin/Admin.php:104
+#: src/WordPress/Admin/Admin.php:516
 msgid "404 log"
 msgstr "404 дневник"
 
-#: src/WordPress/Admin/Admin.php:104
+#: src/WordPress/Admin/Admin.php:105
 msgid "Check old URLs and export"
 msgstr "Проверка на стари адреси и износ"
 
-#: src/WordPress/Admin/Admin.php:105
+#: src/WordPress/Admin/Admin.php:106
 msgid "Settings"
 msgstr "Настройки"
 
-#: src/WordPress/Admin/Admin.php:114
-#: src/WordPress/Admin/Admin.php:273
-#: src/WordPress/Admin/Admin.php:327
+#: src/WordPress/Admin/Admin.php:115
+#: src/WordPress/Admin/Admin.php:274
+#: src/WordPress/Admin/Admin.php:328
 msgid "Add redirect"
 msgstr "Добавяне на пренасочване"
 
-#: src/WordPress/Admin/Admin.php:160
+#: src/WordPress/Admin/Admin.php:161
 msgid "Search redirects"
 msgstr "Търсене"
 
-#: src/WordPress/Admin/Admin.php:180
+#: src/WordPress/Admin/Admin.php:181
 msgid "Test a URL"
 msgstr "Проверка на адрес"
 
-#: src/WordPress/Admin/Admin.php:183
+#: src/WordPress/Admin/Admin.php:184
 msgid "Trace"
 msgstr "Проследяване"
 
 #. translators: %d: rule id.
-#: src/WordPress/Admin/Admin.php:203
+#: src/WordPress/Admin/Admin.php:204
 #, php-format
 msgid "rule #%d"
 msgstr "правило №%d"
 
-#: src/WordPress/Admin/Admin.php:209
+#: src/WordPress/Admin/Admin.php:210
 msgid "Loop: these rules send the visitor around in circles. Waymend stops at the URL it would redirect to itself, but fix the rules."
 msgstr "Цикъл: тези правила въртят посетителя в кръг. Waymend спира при адреса, който би пренасочил към себе си, но поправете правилата."
 
-#: src/WordPress/Admin/Admin.php:211
+#: src/WordPress/Admin/Admin.php:212
 msgid "No rule matches this URL; WordPress handles it as usual."
 msgstr "Нито едно правило не съвпада с този адрес; WordPress го обработва както обикновено."
 
 #. translators: %d: number of redirects.
-#: src/WordPress/Admin/Admin.php:214
+#: src/WordPress/Admin/Admin.php:215
 #, php-format
 msgid "%d redirect in a row. Point the first rule at the final URL to save visitors a round trip."
 msgid_plural "%d redirects in a row. Point the first rule at the final URL to save visitors a round trip."
 msgstr[0] "%d пренасочване подред. Насочете първото правило директно към крайния адрес, за да спестите на посетителите едно отиване и връщане."
 msgstr[1] "%d пренасочвания подред. Насочете първото правило директно към крайния адрес, за да спестите на посетителите излишните стъпки."
 
-#: src/WordPress/Admin/Admin.php:216
+#: src/WordPress/Admin/Admin.php:217
 msgid "One redirect, no loop."
 msgstr "Едно пренасочване, без цикъл."
 
-#: src/WordPress/Admin/Admin.php:230
+#: src/WordPress/Admin/Admin.php:231
 msgid "That redirect does not exist."
 msgstr "Това пренасочване не съществува."
 
-#: src/WordPress/Admin/Admin.php:258
+#: src/WordPress/Admin/Admin.php:259
 msgid "301 Moved permanently"
 msgstr "301 Преместено за постоянно"
 
-#: src/WordPress/Admin/Admin.php:259
+#: src/WordPress/Admin/Admin.php:260
 msgid "302 Found (temporary)"
 msgstr "302 Временно преместено"
 
-#: src/WordPress/Admin/Admin.php:260
+#: src/WordPress/Admin/Admin.php:261
 msgid "307 Temporary redirect (keeps the method)"
 msgstr "307 Временно пренасочване (запазва метода)"
 
-#: src/WordPress/Admin/Admin.php:261
+#: src/WordPress/Admin/Admin.php:262
 msgid "410 Gone (no target)"
 msgstr "410 Премахнато (без цел)"
 
-#: src/WordPress/Admin/Admin.php:264
+#: src/WordPress/Admin/Admin.php:265
 msgid "Exact: this URL only"
 msgstr "Точно: само този адрес"
 
-#: src/WordPress/Admin/Admin.php:265
+#: src/WordPress/Admin/Admin.php:266
 msgid "Prefix: this path and everything below it; the rest is appended to the target"
 msgstr "Префикс: този път и всичко под него; остатъкът се добавя към целта"
 
-#: src/WordPress/Admin/Admin.php:268
+#: src/WordPress/Admin/Admin.php:269
 msgid "Ignore: match the path, drop the visitor's query string"
 msgstr "Пропускане: съвпадение по пътя, query string-ът на посетителя отпада"
 
-#: src/WordPress/Admin/Admin.php:269
+#: src/WordPress/Admin/Admin.php:270
 msgid "Pass: match the path, append the visitor's query string to the target"
 msgstr "Предаване: съвпадение по пътя, query string-ът се добавя към целта"
 
-#: src/WordPress/Admin/Admin.php:270
+#: src/WordPress/Admin/Admin.php:271
 msgid "Exact: the source's query parameters must be present, in any order"
 msgstr "Точно: параметрите от източника трябва да присъстват, в произволен ред"
 
-#: src/WordPress/Admin/Admin.php:273
+#: src/WordPress/Admin/Admin.php:274
 msgid "Edit redirect"
 msgstr "Редактиране на пренасочване"
 
-#: src/WordPress/Admin/Admin.php:284
+#: src/WordPress/Admin/Admin.php:285
 #: src/WordPress/Admin/Rules_Table.php:41
 msgid "Source"
 msgstr "Източник"
 
-#: src/WordPress/Admin/Admin.php:286
+#: src/WordPress/Admin/Admin.php:287
 msgid "A path on this site, such as /old-page/."
 msgstr "Път в този сайт, например /old-page/."
 
-#: src/WordPress/Admin/Admin.php:290
+#: src/WordPress/Admin/Admin.php:291
 #: src/WordPress/Admin/Rules_Table.php:42
 msgid "Target"
 msgstr "Цел"
 
-#: src/WordPress/Admin/Admin.php:292
+#: src/WordPress/Admin/Admin.php:293
 msgid "A path on this site (/new-page/) or a full URL. Leave empty for 410 Gone."
 msgstr "Път в този сайт (/new-page/) или пълен адрес. Оставете празно за 410."
 
-#: src/WordPress/Admin/Admin.php:293
+#: src/WordPress/Admin/Admin.php:294
 msgid "Suggested from a published item with a matching slug. Check it before saving."
 msgstr "Предложено по публикувано съдържание с подобен slug. Проверете го, преди да запишете."
 
-#: src/WordPress/Admin/Admin.php:296
+#: src/WordPress/Admin/Admin.php:297
 #: src/WordPress/Admin/Rules_Table.php:44
 msgid "Status"
 msgstr "Статус"
 
-#: src/WordPress/Admin/Admin.php:302
+#: src/WordPress/Admin/Admin.php:303
 #: src/WordPress/Admin/Rules_Table.php:43
 msgid "Match"
 msgstr "Съвпадение"
 
-#: src/WordPress/Admin/Admin.php:309
+#: src/WordPress/Admin/Admin.php:310
 msgid "Case-sensitive"
 msgstr "Различаване на главни и малки букви"
 
-#: src/WordPress/Admin/Admin.php:313
+#: src/WordPress/Admin/Admin.php:314
 msgid "Query string"
 msgstr "Query string"
 
-#: src/WordPress/Admin/Admin.php:321
+#: src/WordPress/Admin/Admin.php:322
 msgid "Enabled"
 msgstr "Включено"
 
-#: src/WordPress/Admin/Admin.php:323
+#: src/WordPress/Admin/Admin.php:324
 msgid "Active on the site"
 msgstr "Действа в сайта"
 
-#: src/WordPress/Admin/Admin.php:327
+#: src/WordPress/Admin/Admin.php:328
 msgid "Save redirect"
 msgstr "Запазване"
 
-#: src/WordPress/Admin/Admin.php:336
+#: src/WordPress/Admin/Admin.php:337
 msgid "404 logging is switched off in the settings."
 msgstr "Записването на 404 грешки е изключено в настройките."
 
-#: src/WordPress/Admin/Admin.php:341
+#: src/WordPress/Admin/Admin.php:342
 msgid "Search 404s"
 msgstr "Търсене"
 
-#: src/WordPress/Admin/Admin.php:351
+#: src/WordPress/Admin/Admin.php:352
 msgid "Clear the whole log"
 msgstr "Изчистване на целия дневник"
 
-#: src/WordPress/Admin/Admin.php:351
+#: src/WordPress/Admin/Admin.php:352
 msgid "Delete every logged 404?"
 msgstr "Да се изтрият ли всички записани 404 грешки?"
 
-#: src/WordPress/Admin/Admin.php:360
+#: src/WordPress/Admin/Admin.php:361
 msgid "Export CSV"
 msgstr "Износ в CSV"
 
-#: src/WordPress/Admin/Admin.php:361
+#: src/WordPress/Admin/Admin.php:362
 msgid "Downloads every rule with its hit count and last hit, in the same format the importer reads."
 msgstr "Изтегля всички правила с броя посещения и последното посещение, в същия формат, който вносът чете."
 
-#: src/WordPress/Admin/Admin.php:365
+#: src/WordPress/Admin/Admin.php:366
 msgid "Download CSV"
 msgstr "Изтегляне на CSV"
 
-#: src/WordPress/Admin/Admin.php:375
+#: src/WordPress/Admin/Admin.php:376
 msgid "Check old URLs"
 msgstr "Проверка на стари адреси"
 
-#: src/WordPress/Admin/Admin.php:376
+#: src/WordPress/Admin/Admin.php:377
 msgid "Moving or redesigning a site? Paste the old addresses (from the old sitemap, Search Console or an analytics export), one per line. The old domain is fine: each path is checked on this site, the way a visitor following an old link would land."
 msgstr "Местите или преработвате сайт? Поставете старите адреси (от стария sitemap, Search Console или експорт от анализите), по един на ред. Старият домейн не пречи: всеки път се проверява на този сайт, точно както би стигнал посетител по стара връзка."
 
-#: src/WordPress/Admin/Admin.php:382
+#: src/WordPress/Admin/Admin.php:383
 msgid "Old URLs, one per line"
 msgstr "Стари адреси, по един на ред"
 
-#: src/WordPress/Admin/Admin.php:387
+#: src/WordPress/Admin/Admin.php:388
 msgid "Check URLs"
 msgstr "Провери адресите"
 
 #. translators: %d: maximum number of URLs per check.
-#: src/WordPress/Admin/Admin.php:389
+#: src/WordPress/Admin/Admin.php:390
 #, php-format
 msgid "Up to %d URLs per check."
 msgstr "До %d адреса на проверка."
 
 #. translators: %d: number of URLs not checked because of the time limit.
-#: src/WordPress/Admin/Admin.php:408
+#: src/WordPress/Admin/Admin.php:409
 #, php-format
 msgid "Not checked (time limit, run again): %d"
 msgstr "Непроверени (лимит на времето, пуснете отново): %d"
 
 #. translators: %d: number of URLs that need a redirect.
-#: src/WordPress/Admin/Admin.php:418
+#: src/WordPress/Admin/Admin.php:419
 #, php-format
 msgid "Download the %d URL that needs a redirect (CSV)"
 msgid_plural "Download the %d URLs that need a redirect (CSV)"
 msgstr[0] "Изтегли %d адрес, който има нужда от пренасочване (CSV)"
 msgstr[1] "Изтегли %d адреса, които имат нужда от пренасочване (CSV)"
 
-#: src/WordPress/Admin/Admin.php:422
+#: src/WordPress/Admin/Admin.php:423
 msgid "Old URL"
 msgstr "Стар адрес"
 
-#: src/WordPress/Admin/Admin.php:422
+#: src/WordPress/Admin/Admin.php:423
 msgid "Result"
 msgstr "Резултат"
 
-#: src/WordPress/Admin/Admin.php:422
+#: src/WordPress/Admin/Admin.php:423
 msgid "Lands on"
 msgstr "Стига до"
 
 #. translators: %s: suggested target path.
-#: src/WordPress/Admin/Admin.php:432
+#: src/WordPress/Admin/Admin.php:433
 #, php-format
 msgid "Suggested: %s"
 msgstr "Предложение: %s"
 
 #. translators: %d: HTTP status code of WordPress's own redirect.
-#: src/WordPress/Admin/Admin.php:435
+#: src/WordPress/Admin/Admin.php:436
 #, php-format
 msgid "(%d, WordPress redirects it further)"
 msgstr "(%d, WordPress го пренасочва нататък)"
 
-#: src/WordPress/Admin/Admin.php:449
+#: src/WordPress/Admin/Admin.php:450
 msgid "The first 300 results are shown; the CSV has every URL that needs a redirect."
 msgstr "Показани са първите 300 резултата; CSV файлът съдържа всички адреси, които имат нужда от пренасочване."
 
-#: src/WordPress/Admin/Admin.php:459
+#: src/WordPress/Admin/Admin.php:460
 msgid "Missing, needs a redirect"
 msgstr "Липсва, трябва пренасочване"
 
-#: src/WordPress/Admin/Admin.php:460
+#: src/WordPress/Admin/Admin.php:461
 msgid "Redirected to a missing page"
 msgstr "Пренасочен към липсваща страница"
 
-#: src/WordPress/Admin/Admin.php:461
+#: src/WordPress/Admin/Admin.php:462
 msgid "Redirect loop"
 msgstr "Цикъл на пренасочване"
 
-#: src/WordPress/Admin/Admin.php:462
+#: src/WordPress/Admin/Admin.php:463
 msgid "Could not be checked"
 msgstr "Не можа да се провери"
 
-#: src/WordPress/Admin/Admin.php:463
+#: src/WordPress/Admin/Admin.php:464
 msgid "Sent to another site"
 msgstr "Пратен към друг сайт"
 
-#: src/WordPress/Admin/Admin.php:464
+#: src/WordPress/Admin/Admin.php:465
 msgid "Gone (410) on purpose"
 msgstr "Премахнат нарочно (410)"
 
-#: src/WordPress/Admin/Admin.php:465
+#: src/WordPress/Admin/Admin.php:466
 msgid "Redirected, works"
 msgstr "Пренасочен, работи"
 
-#: src/WordPress/Admin/Admin.php:466
+#: src/WordPress/Admin/Admin.php:467
 msgid "Works"
 msgstr "Работи"
 
-#: src/WordPress/Admin/Admin.php:476
+#: src/WordPress/Admin/Admin.php:477
 msgid "Paste at least one old URL or path, one per line."
 msgstr "Поставете поне един стар адрес или път, по един на ред."
 
 #. translators: %d: number of lines that are not URLs.
-#: src/WordPress/Admin/Admin.php:485
+#: src/WordPress/Admin/Admin.php:486
 #, php-format
 msgid "%d line is not a URL and was skipped."
 msgid_plural "%d lines are not URLs and were skipped."
@@ -346,61 +346,61 @@ msgstr[0] "%d ред не е адрес и беше пропуснат."
 msgstr[1] "%d реда не са адреси и бяха пропуснати."
 
 #. translators: %d: maximum number of URLs per check.
-#: src/WordPress/Admin/Admin.php:489
+#: src/WordPress/Admin/Admin.php:490
 #, php-format
 msgid "Only the first %d URLs were checked."
 msgstr "Проверени са само първите %d адреса."
 
-#: src/WordPress/Admin/Admin.php:517
+#: src/WordPress/Admin/Admin.php:518
 msgid "Record URLs that return 404"
 msgstr "Записване на адресите, които връщат 404"
 
-#: src/WordPress/Admin/Admin.php:518
+#: src/WordPress/Admin/Admin.php:519
 msgid "Stores the path, the number of hits, first and last time and the last referrer. No IP addresses or user agents."
 msgstr "Пази пътя, броя посещения, първото и последното време и последния източник. Без IP адреси и user agent."
 
-#: src/WordPress/Admin/Admin.php:522
+#: src/WordPress/Admin/Admin.php:523
 msgid "Keep at most"
 msgstr "Пазене на най-много"
 
-#: src/WordPress/Admin/Admin.php:524
+#: src/WordPress/Admin/Admin.php:525
 msgid "distinct 404 URLs; older ones are removed once a day."
 msgstr "различни 404 адреса; по-старите се изтриват веднъж дневно."
 
-#: src/WordPress/Admin/Admin.php:528
+#: src/WordPress/Admin/Admin.php:529
 msgid "Do not log"
 msgstr "Без записване на"
 
-#: src/WordPress/Admin/Admin.php:530
+#: src/WordPress/Admin/Admin.php:531
 msgid "One pattern per line, * matches anything. The defaults skip common vulnerability scans such as *.php and /.env."
 msgstr "По един шаблон на ред, * съвпада с всичко. По подразбиране се пропускат честите сканирания за уязвимости като *.php и /.env."
 
-#: src/WordPress/Admin/Admin.php:532
+#: src/WordPress/Admin/Admin.php:533
 msgid "Default status for new redirects"
 msgstr "Статус по подразбиране за нови пренасочвания"
 
-#: src/WordPress/Admin/Admin.php:603
+#: src/WordPress/Admin/Admin.php:601
 msgid "Redirect saved."
 msgstr "Пренасочването е запазено."
 
-#: src/WordPress/Admin/Admin.php:603
+#: src/WordPress/Admin/Admin.php:601
 msgid "Redirect added."
 msgstr "Пренасочването е добавено."
 
-#: src/WordPress/Admin/Admin.php:614
+#: src/WordPress/Admin/Admin.php:612
 msgid "Redirect deleted."
 msgstr "Пренасочването е изтрито."
 
-#: src/WordPress/Admin/Admin.php:631
+#: src/WordPress/Admin/Admin.php:629
 msgid "Redirect disabled."
 msgstr "Пренасочването е изключено."
 
-#: src/WordPress/Admin/Admin.php:631
+#: src/WordPress/Admin/Admin.php:629
 msgid "Redirect enabled."
 msgstr "Пренасочването е включено."
 
 #. translators: %d: number of log entries.
-#: src/WordPress/Admin/Admin.php:653
+#: src/WordPress/Admin/Admin.php:651
 #, php-format
 msgid "%d entry deleted."
 msgid_plural "%d entries deleted."
@@ -408,7 +408,7 @@ msgstr[0] "%d запис е изтрит."
 msgstr[1] "%d записа са изтрити."
 
 #. translators: %d: number of redirects.
-#: src/WordPress/Admin/Admin.php:662
+#: src/WordPress/Admin/Admin.php:660
 #, php-format
 msgid "%d redirect deleted."
 msgid_plural "%d redirects deleted."
@@ -416,7 +416,7 @@ msgstr[0] "%d пренасочване е изтрито."
 msgstr[1] "%d пренасочвания са изтрити."
 
 #. translators: %d: number of redirects.
-#: src/WordPress/Admin/Admin.php:668
+#: src/WordPress/Admin/Admin.php:666
 #, php-format
 msgid "%d redirect updated."
 msgid_plural "%d redirects updated."
@@ -424,18 +424,18 @@ msgstr[0] "%d пренасочване е обновено."
 msgstr[1] "%d пренасочвания са обновени."
 
 #. translators: %d: number of redirects.
-#: src/WordPress/Admin/Admin.php:673
+#: src/WordPress/Admin/Admin.php:671
 #, php-format
 msgid "Hit count reset for %d redirect."
 msgid_plural "Hit counts reset for %d redirects."
 msgstr[0] "Броячът е нулиран за %d пренасочване."
 msgstr[1] "Броячите са нулирани за %d пренасочвания."
 
-#: src/WordPress/Admin/Admin.php:689
+#: src/WordPress/Admin/Admin.php:687
 msgid "The 404 log is empty."
 msgstr "404 дневникът е празен."
 
-#: src/WordPress/Admin/Admin.php:750
+#: src/WordPress/Admin/Admin.php:757
 msgid "Settings saved."
 msgstr "Настройките са запазени."
 

@@ -1,10 +1,10 @@
-=== PN Scripts Waymend Lite – Redirects, 404 Log and Old URL Check ===
+=== PN Scripts Waymend Lite: Redirects, 404 Log and Old URL Check ===
 Contributors: pnscripts
 Tags: redirect, 301, 404, migration, broken links
 Requires at least: 6.4
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -23,7 +23,7 @@ Paste the old addresses (from the old sitemap, Search Console or an analytics ex
 * **missing** (with a suggested target when a published post, page or term has the same slug),
 * **redirected to a missing page**, a loop, or sent to another site.
 
-The URLs that need a redirect download as a CSV. Pages are resolved inside WordPress (published posts, real files, WordPress's own routing) and confirmed with a request to the site itself when the server allows it; those requests are not written to the 404 log.
+The URLs that need a redirect download as a CSV. Pages are resolved inside WordPress (published posts, files in the uploads folder, WordPress's own routing) and confirmed with a request to the URL on this site when the server allows it; those requests are not written to the 404 log.
 
 = Redirects =
 
@@ -51,7 +51,7 @@ Waymend (full edition) adds regular-expression rules with capture groups and CSV
 
 = Translations =
 
-English and Bulgarian (bg_BG).
+Waymend Lite is fully translatable. Translations are delivered by WordPress from translate.wordpress.org.
 
 = Privacy =
 
@@ -93,6 +93,11 @@ It does not need to: with the full Waymend active, Waymend Lite stands aside and
 
 == Changelog ==
 
+= 1.0.2 =
+* Security hardening: every value from a request or a form is sanitized as soon as it is read (redirect source and target, the requested URL and the referrer stored in the 404 log, settings).
+* Check old URLs finds uploaded files through the uploads settings, so it works when WordPress or the uploads folder lives elsewhere; other files are checked by their URL.
+* Translations now come from translate.wordpress.org; the plugin no longer bundles translation files.
+
 = 1.0.1 =
 * Messages no longer offer regex rules, which only the full Waymend has: the CSV import names the match types the Lite edition accepts (exact, prefix), the form hints describe paths only, and the unused Order field is gone.
 
@@ -100,6 +105,9 @@ It does not need to: with the full Waymend active, Waymend Lite stands aside and
 * First release of the Lite edition: exact and prefix redirects (301, 302, 307, 410), loop protection, URL tracer, hit counter, 404 log with suggestions, Check old URLs, CSV export, English and Bulgarian.
 
 == Upgrade Notice ==
+
+= 1.0.2 =
+Security hardening of form and request input; Check old URLs works with moved uploads folders.
 
 = 1.0.1 =
 Clearer messages: the CSV import and the form no longer suggest regex rules.

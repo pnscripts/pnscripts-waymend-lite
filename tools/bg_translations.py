@@ -1,4 +1,4 @@
-"""Writes languages/pnscripts-waymend-lite-bg_BG.po from languages/pnscripts-waymend-lite.pot (keys are the msgids exactly as
+"""Writes translations/pnscripts-waymend-lite-bg_BG.po from translations/pnscripts-waymend-lite.pot (keys are the msgids exactly as
 written in the .pot, escapes included). Plural entries map to a pair (one, many)."""
 import re
 from pathlib import Path
@@ -166,7 +166,7 @@ BG = {
     "%d line is not a URL and was skipped.":
         ("%d ред не е адрес и беше пропуснат.", "%d реда не са адреси и бяха пропуснати."),
     "Only the first %d URLs were checked.": "Проверени са само първите %d адреса.",
-    "PN Scripts Waymend Lite – Redirects, 404 Log and Old URL Check": "PN Scripts Waymend Lite – пренасочвания, 404 дневник и проверка на стари адреси",
+    "PN Scripts Waymend Lite: Redirects, 404 Log and Old URL Check": "PN Scripts Waymend Lite: пренасочвания, 404 дневник и проверка на стари адреси",
     "https://pnscripts.com/marketplace/wp-waymend": "https://pnscripts.com/marketplace/wp-waymend",
     "Keep old links working: 301, 302, 307 and 410 redirects by exact URL or prefix, a 404 log with one-click redirects, loop protection, and a check of the old site's URLs before a move.":
         "Старите връзки продължават да работят: пренасочвания 301, 302, 307 и 410 по точен адрес или префикс, дневник на 404 грешки с пренасочване с едно щракване, защита от цикли и проверка на адресите на стария сайт преди преместване.",
@@ -177,7 +177,7 @@ BG = {
 }
 
 root = Path(__file__).resolve().parent.parent
-pot = (root / "languages/pnscripts-waymend-lite.pot").read_text(encoding="utf-8")
+pot = (root / "translations/pnscripts-waymend-lite.pot").read_text(encoding="utf-8")
 header = (
     'msgid ""\nmsgstr ""\n'
     '"Project-Id-Version: Waymend 1.0.0\\n"\n'
@@ -213,5 +213,5 @@ for entry in pot.split("\n\n")[1:]:
     else:
         entry = re.sub(r'^msgstr ""$', lambda _m: 'msgstr "' + q(value) + '"', entry.strip(), flags=re.M)
     out.append(entry + "\n")
-(root / "languages/pnscripts-waymend-lite-bg_BG.po").write_text("\n".join(out), encoding="utf-8")
+(root / "translations/pnscripts-waymend-lite-bg_BG.po").write_text("\n".join(out), encoding="utf-8")
 print("missing:", missing)

@@ -1,9 +1,9 @@
 # Waymend Lite by PN Scripts
 SLUG    := pnscripts-waymend-lite
-VERSION := 1.0.1
+VERSION := 1.0.2
 PY      ?= python3
 ZIP     := dist/$(SLUG)-$(VERSION).zip
-RUNTIME := pnscripts-waymend-lite.php uninstall.php readme.txt LICENSE src assets languages
+RUNTIME := pnscripts-waymend-lite.php uninstall.php readme.txt LICENSE src assets
 
 .PHONY: test test-php80 lint i18n build smoke gallery clean
 
@@ -21,11 +21,13 @@ lint:
 	@find pnscripts-waymend-lite.php uninstall.php src -name '*.php' -print0 | xargs -0 -n1 php8.0 -l | grep -v '^No syntax errors' || true
 	@echo "php -l done (PHP 8.4 and 8.0)"
 
-# Regenerates the .pot (WP-CLI i18n) and the Bulgarian .po/.mo.
+# Regenerates the .pot (WP-CLI i18n) and the Bulgarian .po in translations/. They are not
+# shipped: WordPress.org delivers translations from translate.wordpress.org as language packs;
+# the .po is the source for the Bulgarian strings there.
 i18n:
-	php build/cache/wp-cli.phar i18n make-pot . languages/pnscripts-waymend-lite.pot --slug=pnscripts-waymend-lite --domain=pnscripts-waymend-lite --exclude=build,dist,vendor,tests,tools,listing --skip-audit
+	php build/cache/wp-cli.phar i18n make-pot . translations/pnscripts-waymend-lite.pot --slug=pnscripts-waymend-lite --domain=pnscripts-waymend-lite --exclude=build,dist,vendor,tests,tools,listing,translations --skip-audit
 	python3 tools/bg_translations.py
-	msgfmt --check -o languages/pnscripts-waymend-lite-bg_BG.mo languages/pnscripts-waymend-lite-bg_BG.po
+	msgfmt --check -o /dev/null translations/pnscripts-waymend-lite-bg_BG.po
 
 build:
 	rm -rf build/$(SLUG) $(ZIP)

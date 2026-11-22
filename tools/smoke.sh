@@ -50,6 +50,13 @@ req /this-page-never-existed >/dev/null
 req /wp-config-backup.php >/dev/null
 req /summer-sale >/dev/null
 check "404 logged with hits"       "2" "$(q "SELECT hits FROM wp_waymend_lite_404 WHERE path='/this-page-never-existed'")"
+# WordPress.org review 2026-11-21: request data is sanitized before it is stored.
+curl -s -o /dev/null -H 'Referer: javascript:alert(1)' "$BASE/bad%3Cscript%3E%0D%0Aend"
+curl -s -o /dev/null -H 'X-Waymend-Check: <b>forged</b>' "$BASE/forged-check-header"
+check "404 log: hostile path stored sanitized" "/bad%3Cscript%3Eend" "$(q "SELECT path FROM wp_waymend_lite_404 WHERE path LIKE '/bad%'")"
+check "404 log: no raw markup or control characters stored" "0" "$(wp eval 'global $wpdb; echo count( array_filter( $wpdb->get_col( "SELECT path FROM {$wpdb->prefix}waymend_lite_404" ), static function ( $p ) { return 1 === preg_match( "/[<>\"\\x00-\\x1F\\x7F]/", $p ); } ) );')"
+check "404 log: javascript: referrer dropped" "" "$(q "SELECT referrer FROM wp_waymend_lite_404 WHERE path LIKE '/bad%'")"
+check "404 log: a forged check header does not hide the 404" "1" "$(q "SELECT hits FROM wp_waymend_lite_404 WHERE path='/forged-check-header'")"
 check "ignored pattern not logged" "0" "$(q "SELECT COUNT(*) FROM wp_waymend_lite_404 WHERE path LIKE '%.php'")"
 check "redirected 404 not logged"  "0" "$(q "SELECT COUNT(*) FROM wp_waymend_lite_404 WHERE path='/old-contact'")"
 check "hits counted (2 GET + 1 HEAD)" "3" "$(q "SELECT hits FROM wp_waymend_lite_rules WHERE source='/old-contact'")"
@@ -66,11 +73,35 @@ check "rule form offers exact and prefix only" "exact prefix" "$(grep -o 'name="
 # Only the plugin's form: WordPress's own admin scripts on the same page may say "regex".
 check "rule form has no regex hint or Order field" "0" "$(sed -n '/class="waymend-form"/,/<\/form>/p' <<< "$html" | grep -ci 'regex\|waymend-position')"
 check "rule form found" "1" "$(grep -c 'class="waymend-form"' <<< "$html")"
+# The nonce from the rendered form, as a browser submits it.
+NONCE="$(sed -n '/class="waymend-form"/,/<\/form>/p' <<< "$html" | grep -o 'name="_wpnonce" value="[^"]*"' | head -1 | sed 's/.*value="//; s/"$//')"
+post_rule() { curl -s -o /dev/null -b "$COOKIE" --data-urlencode "action=waymend_lite_save_rule" --data-urlencode "_wpnonce=$NONCE" --data-urlencode "source=$1" --data-urlencode "target=$2" --data-urlencode "status=301" --data-urlencode "match_type=exact" --data-urlencode "query_mode=ignore" --data-urlencode "enabled=1" "$BASE/wp-admin/admin-post.php"; }
+post_rule ' /promo-<b>"x" ' '/contact/?from=<b>'
+check "rule form: source sanitized on arrival" "/promo-bx" "$(q "SELECT source FROM wp_waymend_lite_rules WHERE source LIKE '/promo-%'")"
+check "rule form: target sanitized on arrival" "/contact/?from=b" "$(q "SELECT target FROM wp_waymend_lite_rules WHERE source LIKE '/promo-%'")"
+check "rule form: the sanitized rule redirects" "301 $BASE/contact/?from=b" "$(req '/promo-bx')"
+post_rule '/стара-страница' '/contact/'
+check "rule form: non-Latin source stays readable" "/стара-страница" "$(q "SELECT source FROM wp_waymend_lite_rules WHERE target='/contact/' AND source LIKE '/с%'")"
+check "rule form: non-Latin source matches the encoded request" "301 $BASE/contact/" "$(req '/%D1%81%D1%82%D0%B0%D1%80%D0%B0-%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B0')"
+post_rule '/js-target' 'javascript:alert(1)'
+check "rule form: javascript: target refused" "0" "$(q "SELECT COUNT(*) FROM wp_waymend_lite_rules WHERE source='/js-target'")"
+post_rule "$BASE/abs-<x>" 'https://example.org/new page?a=<1>'
+check "rule form: absolute source on this site, sanitized and made relative" "/abs-x" "$(q "SELECT source FROM wp_waymend_lite_rules WHERE source LIKE '%abs-%'")"
+check "rule form: absolute target sanitized" "https://example.org/new%20page?a=1" "$(q "SELECT target FROM wp_waymend_lite_rules WHERE source LIKE '%abs-%'")"
+check "rule form: no raw markup stored" "0" "$(q "SELECT COUNT(*) FROM wp_waymend_lite_rules WHERE source LIKE '%<%' OR target LIKE '%<%'")"
+wp eval 'global $wpdb; $wpdb->query( "DELETE FROM {$wpdb->prefix}waymend_lite_rules WHERE source LIKE \"/promo-%\" OR source LIKE \"%abs-%\" OR source LIKE \"/с%\"" );' >/dev/null
 check "not a symlink (installed from ZIP)" "no" "$([ -L "$WP_DIR/wp-content/plugins/pnscripts-waymend-lite" ] && echo yes || echo no)"
+ZIP="$(ls -v "$ROOT"/dist/pnscripts-waymend-lite-*.zip | tail -1)"
+check "zip carries no translation files" "0" "$(unzip -Z1 "$ZIP" | grep -cE '\.(po|mo|pot)$|\.l10n\.php$|/languages/')"
+# What translate.wordpress.org delivers: a language pack in wp-content/languages/plugins,
+# loaded by WordPress itself (no load_plugin_textdomain() in the plugin).
+mkdir -p "$WP_DIR/wp-content/languages/plugins"
+wp i18n make-mo "$ROOT/translations/pnscripts-waymend-lite-bg_BG.po" "$WP_DIR/wp-content/languages/plugins" --quiet
 wp option update WPLANG bg_BG --quiet
-check "Bulgarian translation loads"  "Пренасочвания" "$(wp eval 'echo __( "Redirects", "pnscripts-waymend-lite" );')"
+check "Bulgarian language pack loads"  "Пренасочвания" "$(wp eval 'echo __( "Redirects", "pnscripts-waymend-lite" );')"
 grep -q 'Проверка на адрес' <<< "$(admin '&tab=rules')" && echo "ok   admin screen in Bulgarian" || { echo "FAIL admin screen in Bulgarian"; fail=1; }
 wp option update WPLANG '' --quiet
+rm -f "$WP_DIR"/wp-content/languages/plugins/pnscripts-waymend-lite-*
 check "suggested target"           "/summer-sale-2026/" "$(wp eval 'echo PNScripts\WaymendLite\WordPress\Plugin::instance()->log->suggest_target("/summer-sale");')"
 
 # "Check old URLs": real rules, real pages (loopback HEAD to this server), 404s of the check not logged.
@@ -78,7 +109,20 @@ LC="$(wp eval '$p = PNScripts\WaymendLite\WordPress\Plugin::instance(); $c = new
 check "check old URLs: verdicts" "/old-contact=redirect /contact/=ok /discontinued-product=gone /this-is-missing-xyz=missing /summer-sale=ok /promo=external /a-to-b=redirect 1" "$LC"
 check "check old URLs: WordPress's own guess redirect counts as working" "301" "$(curl -s -o /dev/null -w '%{http_code}' -I "$BASE/summer-sale")"
 check "check old URLs: its 404s not logged" "0" "$(q "SELECT COUNT(*) FROM wp_waymend_lite_404 WHERE path='/this-is-missing-xyz'")"
-check "check old URLs: resolved inside WordPress from wp-admin (page, missing, file, category)" "200 404 200 200" "$(wp eval '$_SERVER["PHP_SELF"] = "/wp-admin/admin-post.php"; foreach ( array( "/contact/", "/this-is-missing-xyz", "/wp-includes/js/jquery/jquery.min.js", "/category/uncategorized/" ) as $u ) echo PNScripts\WaymendLite\WordPress\Link_Checker::status_inside_wordpress( $u ), " ";' | sed 's/ $//')"
+mkdir -p "$WP_DIR/wp-content/uploads/2026/11" && echo test > "$WP_DIR/wp-content/uploads/2026/11/old-brochure.pdf"
+inside() { wp eval '$_SERVER["PHP_SELF"] = "/wp-admin/admin-post.php"; foreach ( explode( " ", getenv( "WAYMEND_URIS" ) ) as $u ) { $s = PNScripts\WaymendLite\WordPress\Link_Checker::status_inside_wordpress( $u ); echo null === $s ? "?" : $s, " "; }' | sed 's/ $//'; }
+check "check old URLs: resolved inside WordPress from wp-admin (page, missing, upload, category)" "200 404 200 200" "$(WAYMEND_URIS="/contact/ /this-is-missing-xyz /wp-content/uploads/2026/11/old-brochure.pdf /category/uncategorized/" inside)"
+check "check old URLs: a missing upload is a 404" "404" "$(WAYMEND_URIS="/wp-content/uploads/2026/11/gone.pdf" inside)"
+check "check old URLs: other static files are left to the HTTP check" "?" "$(WAYMEND_URIS="/wp-includes/js/jquery/jquery.min.js" inside)"
+# Uploads moved outside the WordPress folder (upload_path / upload_url_path): found through wp_upload_dir().
+MEDIA="$ROOT/build/wp-media"
+mkdir -p "$MEDIA/2026/11" && echo test > "$MEDIA/2026/11/moved-photo.jpg"
+wp option update upload_path "$MEDIA" --quiet && wp option update upload_url_path "$BASE/media" --quiet
+check "check old URLs: uploads outside the WordPress folder (file, missing)" "200 404" "$(WAYMEND_URIS="/media/2026/11/moved-photo.jpg /media/2026/11/missing-photo.jpg" inside)"
+wp option delete upload_path --quiet && wp option delete upload_url_path --quiet
+rm -rf "$MEDIA"
+LC2="$(wp eval '$p = PNScripts\WaymendLite\WordPress\Plugin::instance(); $r = ( new PNScripts\WaymendLite\WordPress\Link_Checker( $p ) )->run( array( "/wp-includes/js/jquery/jquery.min.js", "/wp-content/uploads/2026/11/old-brochure.pdf" ) ); foreach ( $r["results"] as $x ) { echo $x["verdict"], " "; }' | sed 's/ $//')"
+check "check old URLs: a static file confirmed over HTTP, an upload on disk" "ok ok" "$LC2"
 html="$(admin '&tab=import')"
 grep -q 'Check old URLs' <<< "$html" && echo "ok   import tab shows Check old URLs" || { echo "FAIL Check old URLs card"; fail=1; }
 
