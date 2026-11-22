@@ -1,9 +1,10 @@
 <?php
 /**
  * Runs "Check old URLs" inside WordPress: rules from the database; pages checked
- * through WordPress itself (published posts, real files and WordPress's routing,
- * without HTTP), then confirmed with a loopback HEAD request that follows no
- * redirects and is kept out of the 404 log, when the site can call itself.
+ * through WordPress itself (published posts, files in the uploads folder from
+ * wp_upload_dir() and WordPress's routing, without HTTP), everything else with a
+ * HEAD request to the URL on this site that follows no redirects and is kept out
+ * of the 404 log, when the site can call itself.
  *
  * @package Waymend
  */
@@ -11,6 +12,7 @@
 namespace PNScripts\WaymendLite\WordPress;
 
 use PNScripts\WaymendLite\Core\Link_Check;
+use PNScripts\WaymendLite\Core\Path;
 
 /**
  * WordPress side of the link check.
@@ -97,15 +99,19 @@ final class Link_Checker {
 		);
 	}
 
+	/** Extensions of pages a site answers itself; other extensions are files a web server may serve. */
+	const PAGE_EXTENSIONS = array( 'html', 'htm', 'xhtml', 'shtml', 'php', 'asp', 'aspx', 'jsp', 'cfm' );
+
 	/**
 	 * Status of a site-relative URI worked out inside WordPress, without an HTTP request:
-	 * a real file, or WordPress's own routing (rewrite rules + query), 200 or 404.
+	 * a file in the uploads folder (wp_upload_dir()), or WordPress's own routing (rewrite
+	 * rules + query), 200 or 404. Null for another static file WordPress does not route,
+	 * which only the HEAD request to its URL can confirm.
 	 */
 	public static function status_inside_wordpress( string $uri ): ?int {
-		$path = (string) wp_parse_url( $uri, PHP_URL_PATH );
-		$file = realpath( ABSPATH . ltrim( rawurldecode( $path ), '/' ) );
-		$root = realpath( ABSPATH );
-		if ( '/' !== $path && false !== $file && false !== $root && 0 === strpos( $file, $root ) && is_file( $file ) ) {
+		$path   = (string) wp_parse_url( $uri, PHP_URL_PATH );
+		$upload = '/' === $path ? null : self::upload_exists( $uri );
+		if ( true === $upload ) {
 			return 200;
 		}
 
@@ -135,15 +141,42 @@ final class Link_Checker {
 				}
 			}
 		}
-		if ( ! empty( $vars['error'] ) ) {
-			return 404;
+		if ( empty( $vars['error'] ) ) {
+			$query = new \WP_Query();
+			$query->query( $vars );
+			if ( $query->have_posts() || $query->is_home() || $query->is_front_page() || $query->is_search() || $query->is_feed() ) {
+				return 200;
+			}
 		}
-		$query = new \WP_Query();
-		$query->query( $vars );
-		if ( $query->have_posts() || $query->is_home() || $query->is_front_page() || $query->is_search() || $query->is_feed() ) {
-			return 200;
+		$extension = strtolower( pathinfo( $path, PATHINFO_EXTENSION ) );
+		if ( null === $upload && '' !== $extension && ! in_array( $extension, self::PAGE_EXTENSIONS, true ) ) {
+			return null; // A file outside the uploads folder, such as a theme image: only its URL can tell.
 		}
 
 		return 404;
+	}
+
+	/**
+	 * Whether the URI is a file in the uploads folder, wherever wp_upload_dir() says it is:
+	 * true or false, or null when the URI is not below the uploads URL on this site.
+	 */
+	private static function upload_exists( string $uri ): ?bool {
+		$uploads = wp_upload_dir( null, false );
+		if ( ! empty( $uploads['error'] ) || empty( $uploads['basedir'] ) || empty( $uploads['baseurl'] ) ) {
+			return null;
+		}
+		$url  = home_url( $uri );
+		$host = strtolower( (string) wp_parse_url( $url, PHP_URL_HOST ) );
+		if ( strtolower( (string) wp_parse_url( $uploads['baseurl'], PHP_URL_HOST ) ) !== $host ) {
+			return null; // Uploads served from another host (a CDN): not a file of this site.
+		}
+		$file = Path::file_below( rawurldecode( (string) wp_parse_url( $url, PHP_URL_PATH ) ), $uploads['baseurl'], $uploads['basedir'] );
+		if ( null === $file ) {
+			return null;
+		}
+		$real = realpath( $file );
+		$root = realpath( $uploads['basedir'] );
+
+		return false !== $real && false !== $root && 0 === strpos( $real, $root . DIRECTORY_SEPARATOR ) && is_file( $real );
 	}
 }

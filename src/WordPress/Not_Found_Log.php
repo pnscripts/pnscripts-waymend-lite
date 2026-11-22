@@ -40,7 +40,7 @@ final class Not_Found_Log {
 		}
 
 		global $wpdb;
-		$stored   = substr( $path . ( '' !== $query ? '?' . $query : '' ), 0, 2000 );
+		$stored   = self::stored_form( $path, $query );
 		$hash     = md5( $stored );
 		$now      = current_time( 'mysql', true );
 		$referrer = substr( esc_url_raw( $referrer ), 0, 2000 );
@@ -128,9 +128,16 @@ final class Not_Found_Log {
 	public function delete_path( string $uri ): int {
 		global $wpdb;
 		list( $path, $query ) = Path::split( $uri );
-		$stored               = $path . ( '' !== $query ? '?' . $query : '' );
 
-		return (int) $wpdb->query( $wpdb->prepare( 'DELETE FROM %i WHERE path_hash = %s', $this->table(), md5( $stored ) ) );
+		return (int) $wpdb->query( $wpdb->prepare( 'DELETE FROM %i WHERE path_hash = %s', $this->table(), md5( self::stored_form( $path, $query ) ) ) );
+	}
+
+	/**
+	 * How a path is stored in the log: readable letters, but no control characters, markup or
+	 * other characters a URL may not contain (those are percent-encoded), at most 2000 bytes.
+	 */
+	public static function stored_form( string $path, string $query ): string {
+		return esc_url_raw( Path::clean( $path . ( '' !== $query ? '?' . $query : '' ) ) );
 	}
 
 	public function clear(): void {

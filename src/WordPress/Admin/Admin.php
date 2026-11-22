@@ -10,6 +10,7 @@ namespace PNScripts\WaymendLite\WordPress\Admin;
 use PNScripts\WaymendLite\Core\Csv;
 use PNScripts\WaymendLite\Core\Link_Check;
 use PNScripts\WaymendLite\Core\Loop_Detector;
+use PNScripts\WaymendLite\Core\Path;
 use PNScripts\WaymendLite\Core\Rule;
 use PNScripts\WaymendLite\Core\Rule_Validator;
 use PNScripts\WaymendLite\WordPress\Link_Checker;
@@ -469,6 +470,7 @@ final class Admin {
 
 	public function handle_check_links(): void {
 		$this->guard( 'waymend_lite_check_links' );
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- checked in guard() above.
 		$text  = isset( $_POST['urls'] ) ? sanitize_textarea_field( wp_unslash( $_POST['urls'] ) ) : '';
 		$check = new Link_Check( home_url( '/' ) );
 		$list  = $check->parse_list( $text );
@@ -558,23 +560,20 @@ final class Admin {
 	public function handle_save_rule(): void {
 		$this->guard( 'waymend_lite_save_rule' );
 
-		$input = wp_unslash( $_POST );
-		$rule  = new Rule(
-			// Paths and patterns are kept verbatim (a regex needs its backslashes); they are escaped on output.
-			isset( $input['source'] ) ? trim( (string) $input['source'] ) : '',
-			isset( $input['target'] ) ? trim( (string) $input['target'] ) : '',
-			isset( $input['match_type'] ) ? sanitize_key( $input['match_type'] ) : Rule::EXACT,
-			isset( $input['status'] ) ? absint( $input['status'] ) : 301,
-			isset( $input['query_mode'] ) ? sanitize_key( $input['query_mode'] ) : Rule::QUERY_IGNORE,
-			! empty( $input['case_sensitive'] ),
-			! empty( $input['enabled'] ),
-			isset( $input['id'] ) ? absint( $input['id'] ) : 0,
-			0,
-			null,
-			isset( $input['position'] ) ? (int) $input['position'] : 0
+		// phpcs:disable WordPress.Security.NonceVerification.Missing -- checked in guard() above.
+		// Every field is sanitized as it is read: source and target as redirect URLs.
+		$rule   = new Rule(
+			isset( $_POST['source'] ) ? self::sanitize_source( wp_sanitize_redirect( wp_unslash( $_POST['source'] ) ) ) : '',
+			isset( $_POST['target'] ) ? self::sanitize_target( wp_sanitize_redirect( wp_unslash( $_POST['target'] ) ) ) : '',
+			isset( $_POST['match_type'] ) ? sanitize_key( wp_unslash( $_POST['match_type'] ) ) : Rule::EXACT,
+			isset( $_POST['status'] ) ? absint( wp_unslash( $_POST['status'] ) ) : 301,
+			isset( $_POST['query_mode'] ) ? sanitize_key( wp_unslash( $_POST['query_mode'] ) ) : Rule::QUERY_IGNORE,
+			! empty( $_POST['case_sensitive'] ),
+			! empty( $_POST['enabled'] ),
+			isset( $_POST['id'] ) ? absint( wp_unslash( $_POST['id'] ) ) : 0
 		);
-		$rule   = $this->strip_controls( $rule );
-		$log_id = isset( $input['log_id'] ) ? absint( $input['log_id'] ) : 0;
+		$log_id = isset( $_POST['log_id'] ) ? absint( wp_unslash( $_POST['log_id'] ) ) : 0;
+		// phpcs:enable
 
 		$validator = new Rule_Validator( home_url( '/' ) );
 		$rule      = $validator->normalize( $rule );
@@ -608,6 +607,7 @@ final class Admin {
 	}
 
 	public function handle_delete_rule(): void {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- the id is part of the nonce action checked in guard() right below.
 		$id = isset( $_GET['id'] ) ? absint( $_GET['id'] ) : 0;
 		$this->guard( 'waymend_lite_delete_rule_' . $id );
 		$this->plugin->rules->delete( array( $id ) );
@@ -616,6 +616,7 @@ final class Admin {
 	}
 
 	public function handle_toggle_rule(): void {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- the id is part of the nonce action checked in guard() right below.
 		$id = isset( $_GET['id'] ) ? absint( $_GET['id'] ) : 0;
 		$this->guard( 'waymend_lite_toggle_rule_' . $id );
 		$rule = $this->plugin->rules->find( $id );
@@ -637,14 +638,15 @@ final class Admin {
 	 * Bulk actions of both list tables (nonce "bulk-<plural>" is printed by WP_List_Table).
 	 */
 	public function handle_bulk(): void {
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- only decides whether this is a bulk request; the nonce is checked below.
 		if ( 'POST' !== sanitize_text_field( wp_unslash( $_SERVER['REQUEST_METHOD'] ?? '' ) ) || empty( $_POST['ids'] ) ) {
 			return;
 		}
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- the nonce is checked right below.
-		$tab    = isset( $_GET['tab'] ) && 'log' === $_GET['tab'] ? 'log' : 'rules';
+		$tab    = isset( $_GET['tab'] ) && 'log' === sanitize_key( wp_unslash( $_GET['tab'] ) ) ? 'log' : 'rules';
 		$this->guard( 'log' === $tab ? 'bulk-waymend_lite_404s' : 'bulk-waymend_lite_rules' );
 		$action = $this->bulk_action();
-		$ids    = array_map( 'absint', (array) wp_unslash( $_POST['ids'] ) );
+		$ids    = array_map( 'absint', (array) wp_unslash( $_POST['ids'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- checked in guard() above.
 
 		if ( 'log' === $tab ) {
 			if ( 'delete' === $action ) {
@@ -677,6 +679,7 @@ final class Admin {
 	}
 
 	public function handle_delete_404(): void {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- the id is part of the nonce action checked in guard() right below.
 		$id = isset( $_GET['id'] ) ? absint( $_GET['id'] ) : 0;
 		$this->guard( 'waymend_lite_delete_404_' . $id );
 		$this->plugin->log->delete( array( $id ) );
@@ -702,7 +705,7 @@ final class Admin {
 		$report    = array( 'added' => 0, 'updated' => 0, 'skipped' => 0, 'errors' => $parsed['errors'] );
 
 		foreach ( $parsed['rules'] as $entry ) {
-			$rule   = $validator->normalize( $this->strip_controls( $entry['rule'] ) );
+			$rule   = $validator->normalize( $this->sanitize_rule( $entry['rule'] ) );
 			$result = $validator->validate( $rule, $existing );
 			$codes  = array_column( $result['errors'], 'code' );
 
@@ -746,7 +749,16 @@ final class Admin {
 
 	public function handle_save_settings(): void {
 		$this->guard( 'waymend_lite_save_settings' );
-		Settings::save( wp_unslash( $_POST ) );
+		// phpcs:disable WordPress.Security.NonceVerification.Missing -- checked in guard() above.
+		Settings::save(
+			array(
+				'log_404'         => ! empty( $_POST['log_404'] ),
+				'log_max_rows'    => isset( $_POST['log_max_rows'] ) ? absint( wp_unslash( $_POST['log_max_rows'] ) ) : 2000,
+				'ignore_patterns' => isset( $_POST['ignore_patterns'] ) ? sanitize_textarea_field( wp_unslash( $_POST['ignore_patterns'] ) ) : '',
+				'default_status'  => isset( $_POST['default_status'] ) ? absint( wp_unslash( $_POST['default_status'] ) ) : 301,
+			)
+		);
+		// phpcs:enable
 		Messages::flash( 'success', __( 'Settings saved.', 'pnscripts-waymend-lite' ) );
 		$this->back( array( 'tab' => 'settings' ) );
 	}
@@ -754,8 +766,9 @@ final class Admin {
 	private function bulk_action(): string {
 		// phpcs:disable WordPress.Security.NonceVerification.Missing -- checked in guard() by the caller.
 		foreach ( array( 'action', 'action2' ) as $key ) {
-			if ( ! empty( $_POST[ $key ] ) && '-1' !== $_POST[ $key ] ) {
-				return sanitize_key( wp_unslash( $_POST[ $key ] ) );
+			$value = isset( $_POST[ $key ] ) ? sanitize_key( wp_unslash( $_POST[ $key ] ) ) : '';
+			if ( '' !== $value && '-1' !== $value ) {
+				return $value;
 			}
 		}
 		// phpcs:enable
@@ -764,12 +777,47 @@ final class Admin {
 	}
 
 	/**
-	 * Removes control characters and limits the length of user-entered paths and URLs.
+	 * Imported rules get the same sanitizing as the form.
 	 */
-	private function strip_controls( Rule $rule ): Rule {
-		$rule->source = substr( (string) preg_replace( '/[\x00-\x1F\x7F]/', '', $rule->source ), 0, 2000 );
-		$rule->target = substr( (string) preg_replace( '/[\x00-\x1F\x7F]/', '', $rule->target ), 0, 2000 );
+	private function sanitize_rule( Rule $rule ): Rule {
+		$rule->source = self::sanitize_source( wp_sanitize_redirect( $rule->source ) );
+		$rule->target = self::sanitize_target( wp_sanitize_redirect( $rule->target ) );
 
 		return $rule;
+	}
+
+	/**
+	 * Spaces typed around a URL: wp_sanitize_redirect() has already turned them into %20.
+	 */
+	private static function trim_encoded( string $value ): string {
+		return (string) preg_replace( '/^(?:%20|\s)+|(?:%20|\s)+$/i', '', $value );
+	}
+
+	/**
+	 * A redirect source after wp_sanitize_redirect(): an absolute http(s) URL through
+	 * esc_url_raw() (the validator then keeps only URLs on this site), anything else as a
+	 * site path that starts with one "/". Non-Latin letters stay readable.
+	 */
+	public static function sanitize_source( string $value ): string {
+		$value = Path::readable( self::trim_encoded( $value ) );
+		if ( preg_match( '#^(https?:)?//#i', $value ) ) {
+			return substr( esc_url_raw( $value, array( 'http', 'https' ) ), 0, 2000 );
+		}
+
+		return Path::site_path( $value );
+	}
+
+	/**
+	 * A redirect target after wp_sanitize_redirect(): a URL with a scheme or a protocol-relative
+	 * URL through esc_url_raw() (only the protocols WordPress allows, so javascript: is dropped),
+	 * anything else as a site path. Empty for a 410 rule.
+	 */
+	public static function sanitize_target( string $value ): string {
+		$value = Path::readable( self::trim_encoded( $value ) );
+		if ( preg_match( '#^([a-z][a-z0-9+.\-]*:|//)#i', $value ) ) {
+			return substr( esc_url_raw( $value ), 0, 2000 );
+		}
+
+		return Path::site_path( $value );
 	}
 }

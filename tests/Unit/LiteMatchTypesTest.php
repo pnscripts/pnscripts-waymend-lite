@@ -57,7 +57,7 @@ class LiteMatchTypesTest extends TestCase {
 	 * name regular expressions; nothing may offer them as a choice.
 	 */
 	public function test_no_user_facing_string_offers_regex(): void {
-		$pot = (string) file_get_contents( dirname( __DIR__, 2 ) . '/languages/pnscripts-waymend-lite.pot' );
+		$pot = (string) file_get_contents( dirname( __DIR__, 2 ) . '/translations/pnscripts-waymend-lite.pot' );
 		preg_match_all( '/^msgid "(.+)"$/m', $pot, $matches );
 
 		$allowed = array( 'Regex', 'The regular expression is not valid: %s' );

@@ -139,6 +139,103 @@ final class Path {
 	}
 
 	/**
+	 * Cleans a path or URL from a request or a form before esc_url_raw(): removes control
+	 * characters and percent-encodes everything esc_url_raw() would silently drop (spaces,
+	 * quotes, angle brackets, backslashes, braces, a lone "%", invalid UTF-8), so the cleaned
+	 * value still means the same page. At most 2000 bytes.
+	 */
+	public static function clean( string $raw ): string {
+		$value = trim( (string) preg_replace( '/[\x00-\x1F\x7F]/', '', $raw ) );
+		if ( 1 !== preg_match( '//u', $value ) ) {
+			$value = (string) preg_replace_callback(
+				'/[\x80-\xFF]/',
+				static function ( array $m ): string {
+					return rawurlencode( $m[0] );
+				},
+				$value
+			);
+		}
+		$value = (string) preg_replace_callback(
+			'/%(?![0-9A-Fa-f]{2})|[^A-Za-z0-9\-~+_.?#=!&;,\/:%@$|*\'()\[\]\x80-\xFF]/',
+			static function ( array $m ): string {
+				return rawurlencode( $m[0] );
+			},
+			$value
+		);
+
+		return self::cut( $value, 2000 );
+	}
+
+	/**
+	 * Decodes percent-encoded UTF-8 letters (as wp_sanitize_redirect() leaves them) back into
+	 * text, so non-Latin paths stay readable. ASCII octets and invalid sequences stay encoded,
+	 * so nothing esc_url_raw() would refuse comes back.
+	 */
+	public static function readable( string $value ): string {
+		return (string) preg_replace_callback(
+			'/(?:%[C-Fc-f][0-9A-Fa-f](?:%[89ABab][0-9A-Fa-f]){1,3})+/',
+			static function ( array $m ): string {
+				$text = rawurldecode( $m[0] );
+
+				return 1 === preg_match( '//u', $text ) ? $text : $m[0];
+			},
+			$value
+		);
+	}
+
+	/**
+	 * A cleaned site-relative path that starts with exactly one "/" (never a protocol-relative
+	 * "//host" URL), or "" when nothing is left.
+	 */
+	public static function site_path( string $raw ): string {
+		$value = self::clean( $raw );
+		if ( '' === $value ) {
+			return '';
+		}
+
+		return self::cut( '/' . ltrim( $value, '/' ), 2000 );
+	}
+
+	/**
+	 * The file a URL path points to below a folder served at $base_url (the uploads folder,
+	 * from wp_upload_dir()), or null when the path is not below it or tries to climb out.
+	 *
+	 * @param string $path     Decoded URL path from the site root, for example "/wp-content/uploads/a.jpg".
+	 * @param string $base_url URL of the folder, for example "https://example.com/wp-content/uploads".
+	 * @param string $base_dir Directory of the folder on disk.
+	 */
+	public static function file_below( string $path, string $base_url, string $base_dir ): ?string {
+		$parts = self::parse( $base_url );
+		$base  = rtrim( (string) ( is_array( $parts ) ? ( $parts['path'] ?? '' ) : '' ), '/' );
+		if ( 0 !== strpos( $path, $base . '/' ) || false !== strpos( $path, "\0" ) ) {
+			return null;
+		}
+		$rest = substr( $path, strlen( $base ) + 1 );
+		if ( '' === $rest ) {
+			return null;
+		}
+		foreach ( explode( '/', str_replace( '\\', '/', $rest ) ) as $segment ) {
+			if ( '..' === $segment || '.' === $segment ) {
+				return null;
+			}
+		}
+
+		return rtrim( $base_dir, '/\\' ) . '/' . $rest;
+	}
+
+	/**
+	 * Shortens to at most $bytes bytes without splitting a percent-encoded octet.
+	 */
+	private static function cut( string $value, int $bytes ): string {
+		if ( strlen( $value ) <= $bytes ) {
+			return $value;
+		}
+		$value = substr( $value, 0, $bytes );
+
+		return (string) preg_replace( '/%[0-9A-Fa-f]?$/', '', $value );
+	}
+
+	/**
 	 * @param array<mixed> $array
 	 */
 	private static function ksort_recursive( array &$array ): void {

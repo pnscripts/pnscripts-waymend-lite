@@ -40,8 +40,8 @@ final class Redirector {
 	 * The request URI relative to the site address, for example "/old-page/?a=1".
 	 */
 	public static function request_uri(): string {
-		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- compared against rules, never output; sanitized on storage.
-		$uri  = isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( (string) $_SERVER['REQUEST_URI'] ) : '/';
+		// Sanitized as a URL as soon as it is read (control characters and line breaks removed).
+		$uri  = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '/';
 		$base = rtrim( (string) wp_parse_url( home_url( '/' ), PHP_URL_PATH ), '/' );
 		if ( '' !== $base && 0 === strpos( $uri . '/', $base . '/' ) ) {
 			$uri = substr( $uri, strlen( $base ) );
@@ -112,8 +112,7 @@ final class Redirector {
 	 * Requests made by "Check old URLs" carry a one-time token; their 404s are not logged.
 	 */
 	public static function is_link_check(): bool {
-		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- compared with hash_equals only.
-		$sent  = isset( $_SERVER['HTTP_X_WAYMEND_CHECK'] ) ? (string) wp_unslash( $_SERVER['HTTP_X_WAYMEND_CHECK'] ) : '';
+		$sent  = isset( $_SERVER['HTTP_X_WAYMEND_CHECK'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_X_WAYMEND_CHECK'] ) ) : '';
 		$token = (string) get_transient( 'waymend_lite_link_check_token' );
 
 		return '' !== $sent && '' !== $token && hash_equals( $token, $sent );
@@ -123,8 +122,7 @@ final class Redirector {
 		if ( $this->handled || ! is_404() || self::is_link_check() ) {
 			return;
 		}
-		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- sanitized with esc_url_raw() in record().
-		$referrer = isset( $_SERVER['HTTP_REFERER'] ) ? wp_unslash( (string) $_SERVER['HTTP_REFERER'] ) : '';
+		$referrer = isset( $_SERVER['HTTP_REFERER'] ) ? esc_url_raw( wp_unslash( $_SERVER['HTTP_REFERER'] ) ) : '';
 		$this->log->record( self::request_uri(), $referrer );
 	}
 

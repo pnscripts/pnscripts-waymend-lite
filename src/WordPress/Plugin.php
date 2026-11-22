@@ -46,14 +46,9 @@ final class Plugin {
 		Installer::maybe_upgrade();
 		$this->redirector->register();
 		add_action( 'waymend_lite_prune_log', array( $this->log, 'prune' ) );
-		add_action( 'init', array( $this, 'load_textdomain' ) );
 
 		if ( is_admin() ) {
 			( new Admin( $this ) )->register();
 		}
-	}
-
-	public function load_textdomain(): void {
-		load_plugin_textdomain( 'pnscripts-waymend-lite', false, dirname( plugin_basename( WAYMEND_LITE_FILE ) ) . '/languages' );
 	}
 }
